@@ -28,7 +28,7 @@ collections:
 # agenda op de dienstenpagina. Leeg laten = agenda-sectie verborgen.
 # Let op: de feed moet CORS toestaan (Access-Control-Allow-Origin: *),
 # omdat de browser van de bezoeker hem rechtstreeks ophaalt.
-ical_feed: "https://bin.zandijk.xyz/ics/8304CV-11.ics"
+ical_feed: "webcal://bin.zandijk.xyz/ics/8304CV-11.ics"
 
 exclude:
   - README.md
