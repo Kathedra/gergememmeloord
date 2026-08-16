@@ -9,7 +9,7 @@ timezone: Europe/Amsterdam
 # Bij GitHub Pages als projectsite (username.github.io/reponaam)
 # moet baseurl "/reponaam" zijn; bij een eigen domein blijft het leeg.
 url: "https://gergememmeloord.nl"
-baseurl: ""
+baseurl: "/gergememmeloord"
 
 exclude:
   - README.md
