@@ -11,12 +11,10 @@ description: Aanvangstijden van de kerkdiensten van de Gereformeerde Gemeente Em
 
 Iedere zondag komen wij als gemeente samen. U bent van harte welkom om een dienst bij te wonen.
 
-<!-- TODO: controleer de aanvangstijden voordat de site live gaat -->
-
 | Dienst        | Aanvang     |
 |---------------|-------------|
 | Morgendienst  | 9.30 uur    |
-| Middagdienst  | 15.30 uur   |
+| Middagdienst  | doorgaans 16.00 uur   |
 
 ## Bijzondere diensten
 
