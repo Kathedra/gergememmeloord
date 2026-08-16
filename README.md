@@ -33,8 +33,12 @@ Let op: verborgen mededelingen staan wel in de HTML-bron van de pagina — geen 
 
 De dienstenpagina toont een agenda op basis van een iCal-feed (`.ics`):
 
-- **Waar invullen:** `ical_feed:` in `_config.yml` — de volledige URL van de feed. Zolang die leeg is, blijft de agenda-sectie verborgen.
-- De feed wordt **in de browser van de bezoeker** opgehaald (`assets/js/agenda.js`), want GitHub Pages is statisch. De server die de feed levert moet daarom **CORS toestaan**: `Access-Control-Allow-Origin: *` op de `.ics`-route (in Streamplanner een kleine middleware- of header-aanpassing).
+- **Waar invullen:** `ical_feed:` in `_config.yml` — de volledige **https**-URL van de feed (`webcal://` wordt automatisch omgezet). Zolang die leeg is, blijft de agenda-sectie verborgen.
+- De feed wordt **in de browser van de bezoeker** opgehaald (`assets/js/agenda.js`), want GitHub Pages is statisch. De server die de feed levert moet daarom **CORS toestaan**, anders blokkeert de browser het antwoord. In een Express-app op de ics-route:
+
+  ```js
+  res.set("Access-Control-Allow-Origin", "*");
+  ```
 - Getoond worden de eerstvolgende 8 activiteiten (SUMMARY, datum/tijd, LOCATION).
 - Beperking: alleen losse events; RRULE-herhalingsregels worden niet uitgevouwen.
 

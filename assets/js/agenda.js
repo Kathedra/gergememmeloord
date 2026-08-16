@@ -12,6 +12,9 @@
     section.hidden = true;
     return;
   }
+  // webcal:// is een pseudo-schema voor agenda-apps; fetch() accepteert
+  // alleen http(s), dus zo'n URL halen we op via https.
+  feed = feed.replace(/^webcal:\/\//i, "https://");
 
   function unfold(text) {
     // Regels die met spatie/tab beginnen horen bij de vorige regel (RFC 5545).
@@ -117,7 +120,10 @@
       box.textContent = "";
       box.appendChild(ul);
     })
-    .catch(function () {
+    .catch(function (err) {
+      // Meest voorkomende oorzaak: de feed-server stuurt geen
+      // Access-Control-Allow-Origin-header mee (CORS).
+      console.error("Agenda-feed laden mislukt:", feed, err);
       box.textContent = "De agenda kan op dit moment niet geladen worden.";
     });
 })();
