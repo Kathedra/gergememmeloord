@@ -18,6 +18,12 @@ plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
 
+# Tijdelijke aankondigingen op de homepage: markdown-bestanden in
+# _mededelingen/ met 'vanaf' en 'tot' in de front matter (zie README).
+collections:
+  mededelingen:
+    output: false
+
 # Volledige URL van een .ics-feed (bijv. uit Streamplanner) voor de
 # agenda op de dienstenpagina. Leeg laten = agenda-sectie verborgen.
 # Let op: de feed moet CORS toestaan (Access-Control-Allow-Origin: *),

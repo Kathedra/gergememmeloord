@@ -13,6 +13,10 @@
 
 * { box-sizing: border-box; }
 
+/* Eigen display-regels (grid/flex) mogen het hidden-attribuut
+   nooit overrulen — daar leunt o.a. mededelingen.js op. */
+[hidden] { display: none !important; }
+
 body {
   margin: 0;
   background: var(--cream);
@@ -44,20 +48,22 @@ a:hover { color: var(--brown-deep); }
   position: relative;
   display: flex;
   align-items: center;
-  min-height: 78px;
-  padding: 14px 28px 14px 106px;
+  min-height: 80px;
+  padding: 14px 28px 14px 122px;
   background: var(--brown);
   border-radius: 14px;
   box-shadow: 0 8px 20px rgba(46, 32, 22, 0.28);
 }
 
+/* Verhouding zoals op dia 2: badge ~1,35x de balkhoogte,
+   iets uitstekend links en boven/onder de balk. */
 .logo {
   position: absolute;
-  left: -6px;
+  left: -8px;
   top: 50%;
   transform: translateY(-50%);
-  width: 96px;
-  height: 96px;
+  width: 108px;
+  height: 108px;
   display: block;
   border-radius: 50%;
   box-shadow: 0 6px 14px rgba(46, 32, 22, 0.35);
@@ -111,6 +117,31 @@ a:hover { color: var(--brown-deep); }
   margin: 0 auto;
   padding: 10px 20px 48px;
 }
+
+/* ---------- Mededelingen (tijdelijke aankondigingen) ---------- */
+
+#mededelingen {
+  display: grid;
+  gap: 14px;
+  margin: 14px 0 20px;
+}
+
+.mededeling {
+  background: #fbf6f0;
+  border: 1px solid #e3d5c7;
+  border-left: 5px solid var(--brown);
+  border-radius: 12px;
+  padding: 16px 22px;
+  box-shadow: 0 4px 14px rgba(46, 32, 22, 0.08);
+}
+
+.mededeling h2 {
+  margin: 0 0 0.3rem;
+  font-size: 1.2rem;
+  color: var(--brown-dark);
+}
+
+.mededeling p { margin: 0.3rem 0; }
 
 /* ---------- Hero: omlijnd paneel op bruin vlak (dia 1) ---------- */
 
@@ -298,18 +329,23 @@ a:hover { color: var(--brown-deep); }
 /* ---------- Smalle schermen ---------- */
 
 @media (max-width: 640px) {
+  /* Mobiel: logo gecentreerd bovenin de balk, titel eronder. */
   .header-bar {
-    min-height: 64px;
-    padding: 12px 16px 12px 80px;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    min-height: 0;
+    padding: 16px 16px 14px;
   }
 
   .logo {
-    width: 68px;
-    height: 68px;
-    left: -3px;
+    position: static;
+    transform: none;
+    width: 80px;
+    height: 80px;
   }
 
-  .site-title { font-size: 1.05rem; }
+  .site-title { font-size: 1.1rem; }
 
   .site-nav { gap: 1.1rem; }
 }

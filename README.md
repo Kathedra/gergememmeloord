@@ -19,6 +19,16 @@ Zoek op `TODO` in de repo. In elk geval:
 3. **Livestreamlink** in `meeluisteren.md` (wijst nu naar een placeholder-YouTube-kanaal).
 4. **iCal-feed** — zet de feed-URL in `_config.yml` bij `ical_feed` (zie hieronder).
 
+## Mededelingen (tijdelijke aankondigingen)
+
+Iets promoten op de homepage voor een bepaalde periode:
+
+1. Maak een markdown-bestand in `_mededelingen/` (kopieer `voorbeeld.md`).
+2. Zet in de front matter: `titel`, `vanaf` en `tot` (datums als `JJJJ-MM-DD`, beide inclusief). `vanaf` weglaten = direct zichtbaar.
+3. Commit + push. Klaar — de mededeling verschijnt vanzelf op de startdatum en verdwijnt na de einddatum, **zonder** dat er opnieuw gepusht hoeft te worden (de datumcheck gebeurt in de browser via `assets/js/mededelingen.js`, omdat GitHub Pages alleen bij een push herbouwt).
+
+Let op: verborgen mededelingen staan wel in de HTML-bron van de pagina — geen vertrouwelijke inhoud dus. Verwijder verlopen bestanden bij gelegenheid gewoon uit de map.
+
 ## Agenda via iCal-feed
 
 De dienstenpagina toont een agenda op basis van een iCal-feed (`.ics`):

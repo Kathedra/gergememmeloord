@@ -2,9 +2,9 @@
 <!-- Opgeschoonde potrace-versie van het originele logo:
      de vier hoekvlakken (zwarte dia-achtergrond) zijn verwijderd,
      ring + kerkgebouw zijn behouden en bruin gekleurd.
-     Opbouw als badge (zoals dia 2): bruine buitenschijf,
-     witte schijf, daarbinnen het logo op 80% geschaald. -->
-<circle cx="1000" cy="1000" r="1000" fill="#7d5c48"/>
+     Opbouw als badge (zoals dia 2): bruine buitenschijf in dezelfde
+     kleur als de headerbalk, witte schijf, logo op 80% geschaald. -->
+<circle cx="1000" cy="1000" r="1000" fill="#8f6c55"/>
 <circle cx="1000" cy="1000" r="830" fill="#ffffff"/>
 <g transform="translate(1000,1000) scale(0.8) translate(-1000,-1000)">
 <g transform="translate(0,2000) scale(0.1,-0.1)" fill="#7d5c48" stroke="none">

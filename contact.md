@@ -19,7 +19,10 @@ description: Contactgegevens van de Gereformeerde Gemeente Emmeloord.
 ## Scriba
 
 Voor vragen aan de kerkenraad kunt u contact opnemen met de scriba:
-[scriba@gergememmeloord.nl](mailto:scriba@gergememmeloord.nl)
+
+<a class="btn btn-page" href="mailto:scriba@gergememmeloord.nl">Mail de scriba</a>
+
+E-mailadres: [scriba@gergememmeloord.nl](mailto:scriba@gergememmeloord.nl)
 
 ## Een dienst bezoeken
 

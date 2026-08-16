@@ -7,6 +7,18 @@ description: >-
   kerkdiensten elke zondag, live meeluisteren en contactgegevens.
 ---
 
+{% if site.mededelingen.size > 0 %}
+<section id="mededelingen" hidden aria-label="Mededelingen">
+  {% for m in site.mededelingen %}
+  <article class="mededeling" hidden{% if m.vanaf %} data-vanaf="{{ m.vanaf | date: '%Y-%m-%d' }}"{% endif %}{% if m.tot %} data-tot="{{ m.tot | date: '%Y-%m-%d' }}"{% endif %}>
+    <h2>{{ m.titel | default: m.title }}</h2>
+    {{ m.content | markdownify }}
+  </article>
+  {% endfor %}
+</section>
+<script src="{{ '/assets/js/mededelingen.js' | relative_url }}" defer></script>
+{% endif %}
+
 <section class="hero">
   <div class="hero-box">
     <h1>Welkom bij de Gereformeerde Gemeente Emmeloord</h1>
