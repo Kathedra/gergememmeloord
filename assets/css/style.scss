@@ -56,10 +56,12 @@ a:hover { color: var(--brown-deep); }
 }
 
 /* Verhouding zoals op dia 2: badge ~1,35x de balkhoogte,
-   iets uitstekend links en boven/onder de balk. */
+   iets uitstekend links en boven/onder de balk. Ruim genoeg naar
+   links geschoven zodat de bruine balk nergens achter de ronde
+   badge vandaan piept (ook niet bij de afgeronde balkhoek). */
 .logo {
   position: absolute;
-  left: -8px;
+  left: -20px;
   top: 50%;
   transform: translateY(-50%);
   width: 108px;
@@ -329,23 +331,33 @@ a:hover { color: var(--brown-deep); }
 /* ---------- Smalle schermen ---------- */
 
 @media (max-width: 640px) {
-  /* Mobiel: logo gecentreerd bovenin de balk, titel eronder. */
+  /* Mobiel: zelfde opbouw als desktop (logo + titel op één regel
+     in de balk), enkel verkleind zodat het past. */
   .header-bar {
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    min-height: 0;
-    padding: 16px 16px 14px;
+    min-height: 52px;
+    padding: 10px 14px 10px 62px;
   }
 
   .logo {
-    position: static;
-    transform: none;
-    width: 80px;
-    height: 80px;
+    left: -12px;
+    width: 64px;
+    height: 64px;
   }
 
-  .site-title { font-size: 1.1rem; }
+  .site-title {
+    font-size: clamp(0.82rem, 4.6vw, 1.1rem);
+    letter-spacing: 0.01em;
+  }
 
   .site-nav { gap: 1.1rem; }
+}
+
+@media (max-width: 360px) {
+  /* Zeer smalle telefoons: badge nog iets kleiner, tekst iets kleiner,
+     verder identieke opbouw (nog altijd één regel). */
+  .header-bar { padding: 10px 10px 10px 54px; }
+
+  .logo { width: 54px; height: 54px; left: -10px; }
+
+  .site-title { font-size: clamp(0.72rem, 5vw, 1rem); }
 }
