@@ -22,6 +22,14 @@ Iedere zondag komen wij als gemeente samen. U bent van harte welkom om een diens
 
 Naast de zondagse diensten zijn er door het jaar heen diensten op christelijke feestdagen, bid- en dankdag en bijzondere gelegenheden. Deze worden hier en in de kerkbode aangekondigd.
 
+<section id="agenda-sectie" markdown="0">
+  <h2>Agenda</h2>
+  <div id="agenda" data-feed="{{ site.ical_feed }}">
+    <p>De agenda wordt geladen&hellip;</p>
+  </div>
+</section>
+<script src="{{ '/assets/js/agenda.js' | relative_url }}" defer></script>
+
 <!-- TODO: vul aan met doordeweekse activiteiten (verenigingen, catechisatie) indien gewenst -->
 
 </div>

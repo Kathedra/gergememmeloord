@@ -18,6 +18,12 @@ plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
 
+# Volledige URL van een .ics-feed (bijv. uit Streamplanner) voor de
+# agenda op de dienstenpagina. Leeg laten = agenda-sectie verborgen.
+# Let op: de feed moet CORS toestaan (Access-Control-Allow-Origin: *),
+# omdat de browser van de bezoeker hem rechtstreeks ophaalt.
+ical_feed: ""
+
 exclude:
   - README.md
   - Gemfile

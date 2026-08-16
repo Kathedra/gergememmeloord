@@ -17,6 +17,16 @@ Zoek op `TODO` in de repo. In elk geval:
 1. **Aanvangstijden** in `diensten.md` — er staan nu aannames (9.30 / 15.30 uur).
 2. **Adres en scriba-gegevens** in `contact.md`.
 3. **Livestreamlink** in `meeluisteren.md` (wijst nu naar een placeholder-YouTube-kanaal).
+4. **iCal-feed** — zet de feed-URL in `_config.yml` bij `ical_feed` (zie hieronder).
+
+## Agenda via iCal-feed
+
+De dienstenpagina toont een agenda op basis van een iCal-feed (`.ics`):
+
+- **Waar invullen:** `ical_feed:` in `_config.yml` — de volledige URL van de feed. Zolang die leeg is, blijft de agenda-sectie verborgen.
+- De feed wordt **in de browser van de bezoeker** opgehaald (`assets/js/agenda.js`), want GitHub Pages is statisch. De server die de feed levert moet daarom **CORS toestaan**: `Access-Control-Allow-Origin: *` op de `.ics`-route (in Streamplanner een kleine middleware- of header-aanpassing).
+- Getoond worden de eerstvolgende 8 activiteiten (SUMMARY, datum/tijd, LOCATION).
+- Beperking: alleen losse events; RRULE-herhalingsregels worden niet uitgevouwen.
 
 ## SEO
 

@@ -1,9 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000" role="img" aria-label="Logo Gereformeerde Gemeente Emmeloord">
 <!-- Opgeschoonde potrace-versie van het originele logo:
      de vier hoekvlakken (zwarte dia-achtergrond) zijn verwijderd,
-     ring + kerkgebouw zijn behouden en bruin gekleurd,
-     met een witte schijf eronder zodat het als badge werkt. -->
-<circle cx="1000" cy="1000" r="960" fill="#ffffff"/>
+     ring + kerkgebouw zijn behouden en bruin gekleurd.
+     Opbouw als badge (zoals dia 2): bruine buitenschijf,
+     witte schijf, daarbinnen het logo op 80% geschaald. -->
+<circle cx="1000" cy="1000" r="1000" fill="#7d5c48"/>
+<circle cx="1000" cy="1000" r="830" fill="#ffffff"/>
+<g transform="translate(1000,1000) scale(0.8) translate(-1000,-1000)">
 <g transform="translate(0,2000) scale(0.1,-0.1)" fill="#7d5c48" stroke="none">
 <path d="M9570 19674 c-25 -2 -117 -8 -205 -14 -1538 -102 -3004 -561 -4333
 -1357 -1232 -737 -2302 -1761 -3097 -2963 -227 -342 -403 -647 -578 -995 -466
@@ -51,5 +54,6 @@ M12090 9754 c0 -396 -3 -1478 -7 -2406 l-6 -1688 461 0 462 0 0 1083 c0 596
 M4244 5421 c-44 -27 -64 -59 -64 -104 0 -48 25 -86 69 -104 30 -13 814 -16
 5795 -25 5293 -10 5764 -10 5799 5 69 30 85 123 32 184 l-23 28 -644 6 c-353
 4 -2870 9 -5593 13 -2722 3 -5038 9 -5145 12 -182 5 -197 4 -226 -15z"/>
+</g>
 </g>
 </svg>
