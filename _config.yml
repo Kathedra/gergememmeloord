@@ -2,14 +2,21 @@ title: Gereformeerde Gemeente Emmeloord
 description: >-
   Website van de Gereformeerde Gemeente te Emmeloord —
   kerkdiensten, meeluisteren en contact.
+tagline: Kerkdiensten en meeluisteren
 lang: nl
+locale: nl_NL
 timezone: Europe/Amsterdam
+logo: /assets/img/logo.svg
 
-# Pas aan zodra het definitieve adres bekend is.
-# Bij GitHub Pages als projectsite (username.github.io/reponaam)
-# moet baseurl "/reponaam" zijn; bij een eigen domein blijft het leeg.
-url: "https://gergememmeloord.nl"
+# url + baseurl bepalen de canonical-URL's in de SEO-tags en de sitemap.
+# Nu: projectsite op GitHub Pages. Bij verhuizing naar het eigen domein:
+#   url: "https://gergememmeloord.nl"  en  baseurl: ""
+url: "https://kathedra.github.io"
 baseurl: "/gergememmeloord"
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
 
 exclude:
   - README.md

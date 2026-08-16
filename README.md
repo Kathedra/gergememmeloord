@@ -7,7 +7,7 @@ Statische website gebouwd met [Jekyll](https://jekyllrb.com/), bedoeld voor host
 - `_layouts/default.html` — basispagina (head, header, footer)
 - `_includes/header.html` — de bruine headerbalk met logo en het menu
 - `assets/css/style.scss` — alle styling; kleuren staan bovenin als CSS-variabelen
-- `assets/img/logo.svg` — het logo, nagetekend als SVG (vervang gerust door het originele bestand)
+- `assets/img/logo.svg` — het echte logo (potrace-trace), opgeschoond: hoekvlakken verwijderd, ring en kerk bruin gekleurd op een witte schijf
 - `index.md`, `diensten.md`, `meeluisteren.md`, `contact.md` — de pagina's
 
 ## Vóór livegang invullen (placeholders)
@@ -17,7 +17,13 @@ Zoek op `TODO` in de repo. In elk geval:
 1. **Aanvangstijden** in `diensten.md` — er staan nu aannames (9.30 / 15.30 uur).
 2. **Adres en scriba-gegevens** in `contact.md`.
 3. **Livestreamlink** in `meeluisteren.md` (wijst nu naar een placeholder-YouTube-kanaal).
-4. **Logo** — `assets/img/logo.svg` is een benadering; vervang door het echte logobestand als dat beschikbaar is.
+
+## SEO
+
+- `jekyll-seo-tag` genereert title-, description-, canonical-, Open Graph- en JSON-LD-tags (de `{% seo %}`-regel in `_layouts/default.html`).
+- `jekyll-sitemap` genereert `/sitemap.xml`; `robots.txt` verwijst ernaar.
+- Canonical-URL's volgen `url` + `baseurl` in `_config.yml`. Die staan nu op de GitHub Pages-projectsite; **bij verhuizing naar gergememmeloord.nl beide aanpassen** (zie de opmerking in `_config.yml`).
+- Zodra het adres van het kerkgebouw definitief is, kan er Church/LocalBusiness structured data (JSON-LD) aan de homepage worden toegevoegd voor betere lokale vindbaarheid.
 
 ## Lokaal draaien
 
