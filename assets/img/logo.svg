@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Logo Gereformeerde Gemeente Emmeloord">
+  <circle cx="60" cy="60" r="58" fill="#8f6c55"/>
+  <circle cx="60" cy="60" r="52" fill="#ffffff"/>
+  <g fill="#8f6c55">
+    <rect x="50" y="30" width="20" height="4" rx="1"/>
+    <rect x="53" y="36" width="14" height="42"/>
+    <path d="M32 62 L53 44 L53 49 L36 65 Z"/>
+    <path d="M88 62 L67 44 L67 49 L84 65 Z"/>
+    <rect x="36" y="66" width="4" height="12"/>
+    <rect x="42" y="60" width="4" height="18"/>
+    <rect x="48" y="55" width="4" height="23"/>
+    <rect x="68" y="55" width="4" height="23"/>
+    <rect x="74" y="60" width="4" height="18"/>
+    <rect x="80" y="66" width="4" height="12"/>
+    <rect x="30" y="80" width="60" height="4" rx="2"/>
+  </g>
+  <path d="M56 44 a4 4 0 0 1 8 0 v10 h-8 Z" fill="#ffffff"/>
+</svg>

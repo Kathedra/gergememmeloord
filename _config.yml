@@ -1,0 +1,18 @@
+title: Gereformeerde Gemeente Emmeloord
+description: >-
+  Website van de Gereformeerde Gemeente te Emmeloord —
+  kerkdiensten, meeluisteren en contact.
+lang: nl
+timezone: Europe/Amsterdam
+
+# Pas aan zodra het definitieve adres bekend is.
+# Bij GitHub Pages als projectsite (username.github.io/reponaam)
+# moet baseurl "/reponaam" zijn; bij een eigen domein blijft het leeg.
+url: "https://gergememmeloord.nl"
+baseurl: ""
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
