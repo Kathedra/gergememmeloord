@@ -15,7 +15,7 @@ login_url: "https://web.scipio-app.nl/app/#/login"
 # een bestand in assets/img/ (bijv. "/assets/img/hero.jpg"), of leeg
 # laten voor de bruine gradient. Er komt altijd een donkere overlay
 # overheen zodat de tekst leesbaar blijft, ongeacht de foto.
-hero_image: ""
+hero_image: "/assets/img/hero.jpg"
 
 # url + baseurl bepalen de canonical-URL's in de SEO-tags en de sitemap.
 # Nu: projectsite op GitHub Pages. Bij verhuizing naar het eigen domein:
