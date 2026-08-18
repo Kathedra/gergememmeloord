@@ -19,7 +19,7 @@ description: >-
 <script src="{{ '/assets/js/mededelingen.js' | relative_url }}" defer></script>
 {% endif %}
 
-<section class="hero">
+<section class="hero"{% if site.hero_image %} style="--hero-bg: linear-gradient(rgba(74,56,44,.72), rgba(74,56,44,.72)), url('{{ site.hero_image | relative_url }}');"{% endif %}>
   <div class="hero-box">
     <h1>Welkom bij de Gereformeerde Gemeente Emmeloord</h1>
     <p>Hartelijk welkom op onze website. Hier kunt u lezen over <a href="{{ '/over-ons/' | relative_url }}">onze kerk</a> en <a href="{{ '/wat-geloven-wij/' | relative_url }}">waar we in geloven</a>.</p>

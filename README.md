@@ -16,6 +16,16 @@ Statische website gebouwd met [Jekyll](https://jekyllrb.com/), bedoeld voor host
 
 De "Inloggen"-knop in het menu en op de meeluisterpagina linkt naar het ledenportaal, ingesteld via `login_url` in `_config.yml` (nu `https://web.scipio-app.nl/app/#/login`). De link opent in een nieuw tabblad.
 
+## Foto achter de welkomstbanner
+
+De banner op de homepage ("Welkom bij...") gebruikt standaard de bruine gradient. Om er een foto achter te zetten:
+
+1. Zet de afbeelding in `assets/img/` (bijv. `assets/img/hero.jpg`).
+2. Vul in `_config.yml` bij `hero_image` het pad in, bijv. `"/assets/img/hero.jpg"`.
+3. Commit + push. Er komt automatisch een donkere overlay overheen zodat de witte tekst leesbaar blijft, ongeacht welke foto het is.
+
+Leeg laten (`hero_image: ""`) geeft weer de gradient.
+
 ## Mededelingen (tijdelijke aankondigingen)
 
 Iets promoten op de homepage voor een bepaalde periode:

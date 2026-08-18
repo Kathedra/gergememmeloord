@@ -91,6 +91,7 @@ a:hover { color: var(--brown-deep); }
 .site-nav {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
   gap: 1.6rem;
   padding: 0.9rem 0 0.7rem;
@@ -113,13 +114,38 @@ a:hover { color: var(--brown-deep); }
 }
 
 /* Inloggen is een actie (naar een externe app), geen paginalink —
-   daarom een gevulde badge in plaats van een gewone menutekst. */
+   daarom een gevulde badge met icoon in plaats van een gewone
+   menutekst, met een verticaal streepje ervoor als scheiding van
+   de paginalinks. align-items: center hierboven zorgt dat de badge
+   (met eigen padding) toch op dezelfde hoogte staat als de tekst. */
 .site-nav a.nav-login {
-  padding: 0.3rem 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-left: 0.4rem;
+  padding: 0.35rem 0.9rem;
   background: var(--brown);
   color: #fff;
   border-radius: 999px;
   letter-spacing: 0.06em;
+  position: relative;
+}
+
+.site-nav a.nav-login::before {
+  content: "";
+  position: absolute;
+  left: -0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 1.1em;
+  background: #d9c8ba;
+}
+
+.site-nav a.nav-login svg {
+  width: 14px;
+  height: 14px;
+  flex: none;
 }
 
 .site-nav a.nav-login:hover {
@@ -165,7 +191,12 @@ a:hover { color: var(--brown-deep); }
 .hero {
   margin-top: 14px;
   padding: clamp(28px, 6vw, 64px);
-  background: linear-gradient(135deg, var(--brown-dark), var(--brown) 55%, #a5836b);
+  /* --hero-bg wordt door index.md gezet zodra site.hero_image is
+     ingevuld (foto + donkere overlay); zonder foto blijft dit de
+     originele bruine gradient. */
+  background-image: var(--hero-bg, linear-gradient(135deg, var(--brown-dark), var(--brown) 55%, #a5836b));
+  background-size: cover;
+  background-position: center;
   border-radius: 14px;
   box-shadow: 0 8px 20px rgba(46, 32, 22, 0.22);
   color: #fff;
@@ -185,6 +216,16 @@ a:hover { color: var(--brown-deep); }
 }
 
 .hero p { margin: 0.4rem 0; }
+
+/* Links in de hero staan op een donkere (foto- of gradient-)
+   achtergrond — de standaard bruine linkkleur is daar onleesbaar. */
+.hero a {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.hero a:hover { color: var(--cream); }
 
 .btn {
   display: inline-block;

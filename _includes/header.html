@@ -12,7 +12,10 @@
       <a href="{{ parts[1] | relative_url }}"{% if page.url == parts[1] %} class="active" aria-current="page"{% endif %}>{{ parts[0] }}</a>
     {% endfor %}
     {% if site.login_url %}
-      <a class="nav-login" href="{{ site.login_url }}" target="_blank" rel="noopener">Inloggen</a>
+      <a class="nav-login" href="{{ site.login_url }}" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+        Inloggen
+      </a>
     {% endif %}
   </nav>
 </header>
