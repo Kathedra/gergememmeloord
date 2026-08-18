@@ -9,6 +9,10 @@
   --cream: #f6f1ec;
   --ink: #2b241e;
   --muted: #6f6257;
+  /* Warm baksteenrood, past bij het bruin/crème-palet; alleen voor
+     de uitzending-knop (opvallen tussen het bruin). */
+  --brick: #9e3a25;
+  --brick-dark: #7e2e1d;
 }
 
 * { box-sizing: border-box; }
@@ -274,8 +278,9 @@ a:hover { color: var(--brown-deep); }
 
 /* ---------- Uitzending-knop (vrij mee te kijken dienst) ---------- */
 
-/* Eén regel, geen extra informatie: alleen de knoptekst uit de front
-   matter. Verschijnt/verdwijnt via uitzending.js (datumvenster). */
+/* Eén regel met alleen de naam van de uitzending (titel uit de front
+   matter). Verschijnt/verdwijnt via uitzending.js (datumvenster).
+   Baksteenrood zodat hij afsteekt tegen al het bruin. */
 .uitzending-knop {
   display: flex;
   align-items: center;
@@ -283,7 +288,7 @@ a:hover { color: var(--brown-deep); }
   gap: 0.6rem;
   margin: 14px 0 0;
   padding: 0.85rem 1.2rem;
-  background: var(--brown-dark);
+  background: var(--brick);
   color: #fff;
   border-radius: 12px;
   box-shadow: 0 4px 14px rgba(46, 32, 22, 0.18);
@@ -293,10 +298,20 @@ a:hover { color: var(--brown-deep); }
   text-align: center;
 }
 
+/* Bewust héél subtiel (1%): Joan wil een lichte puls, geen springende
+   knop. */
+@keyframes uitzending-puls {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.01); }
+}
+
 .uitzending-knop:hover {
-  background: var(--brown-deep);
+  background: var(--brick-dark);
   /* Expliciet wit i.v.m. de generieke a:hover-regel (zie .nav-login). */
   color: #fff;
+  /* Zachte puls op hover; de prefers-reduced-motion-regel onderaan
+     zet dit automatisch uit voor wie geen beweging wil. */
+  animation: uitzending-puls 1.3s ease-in-out infinite;
 }
 
 .uitzending-knop svg {
@@ -483,6 +498,25 @@ a:hover { color: var(--brown-deep); }
 }
 
 .page tr:last-child td { border-bottom: none; }
+
+/* ---------- Kaart (contactpagina) ---------- */
+
+.kaart { display: block; }
+
+.kaart img {
+  display: block;
+  width: 100%;
+  max-width: 760px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(46, 32, 22, 0.15);
+}
+
+.kaart-bron {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 0.4rem;
+}
 
 /* ---------- Agenda (iCal-feed) ---------- */
 

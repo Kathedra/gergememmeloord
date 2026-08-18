@@ -10,7 +10,10 @@ description: >-
 {% if site.uitzendingen.size > 0 %}
 {% for u in site.uitzendingen %}
 <a class="uitzending-knop" hidden href="{{ u.stream_url }}" target="_blank" rel="noopener"{% if u.vanaf %} data-vanaf="{{ u.vanaf | date: '%Y-%m-%d' }}"{% endif %}{% if u.tot %} data-tot="{{ u.tot | date: '%Y-%m-%d' }}"{% endif %}>
-  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="7 4 21 12 7 20"/></svg>
+  <!-- width/height-attributen als vangnet: zonder CSS (bijv. een
+       verouderde gecachte stylesheet) vulde het pictogram anders de
+       hele pagina. -->
+  <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><polygon points="7 4 21 12 7 20"/></svg>
   <span>{{ u.titel }}<span class="sr-only"> (opent in nieuw venster)</span></span>
 </a>
 {% endfor %}
