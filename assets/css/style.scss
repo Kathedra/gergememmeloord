@@ -298,11 +298,10 @@ a:hover { color: var(--brown-deep); }
   text-align: center;
 }
 
-/* Bewust héél subtiel (1%): Joan wil een lichte puls, geen springende
-   knop. */
+/* 5% pulse on touch */
 @keyframes uitzending-puls {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.01); }
+  50% { transform: scale(1.05); }
 }
 
 .uitzending-knop:hover {
