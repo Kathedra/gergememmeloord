@@ -1,10 +1,29 @@
 <header class="site-header">
+  <!-- CSS-only hamburger (checkbox hack): geen JS-afhankelijkheid,
+       zodat het menu ook werkt als scripts geblokkeerd zijn. -->
+  <input type="checkbox" id="menu-toggle" class="menu-toggle-input">
+
   <div class="header-bar">
     <a class="logo" href="{{ '/' | relative_url }}" aria-label="Naar de startpagina">
       <img src="{{ '/assets/img/logo.svg' | relative_url }}" alt="" width="108" height="108">
     </a>
     <p class="site-title">{{ site.title }}</p>
+
+    {% if site.login_url %}
+      <a class="nav-login nav-login--bar" href="{{ site.login_url }}" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+        <span>Inloggen</span>
+      </a>
+    {% endif %}
+
+    <label for="menu-toggle" class="menu-toggle">
+      <span class="menu-toggle-bar"></span>
+      <span class="menu-toggle-bar"></span>
+      <span class="menu-toggle-bar"></span>
+      <span class="sr-only">Menu</span>
+    </label>
   </div>
+
   <nav class="site-nav" aria-label="Hoofdmenu">
     {% assign nav_items = "Home|/;Diensten|/diensten/;Wat geloven wij|/wat-geloven-wij/;Over ons|/over-ons/;Meeluisteren|/meeluisteren/;Contact|/contact/" | split: ";" %}
     {% for item in nav_items %}
@@ -12,9 +31,9 @@
       <a href="{{ parts[1] | relative_url }}"{% if page.url == parts[1] %} class="active" aria-current="page"{% endif %}>{{ parts[0] }}</a>
     {% endfor %}
     {% if site.login_url %}
-      <a class="nav-login" href="{{ site.login_url }}" target="_blank" rel="noopener">
+      <a class="nav-login nav-login--menu" href="{{ site.login_url }}" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
-        Inloggen
+        <span>Inloggen</span>
       </a>
     {% endif %}
   </nav>
