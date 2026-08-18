@@ -1,7 +1,7 @@
 ---
 titel: Kinder Bijbel Week (KBC)
-vanaf: 2026-08-16
-tot: 2026-08-16
+vanaf: 2026-08-18
+tot: 2026-08-18
 ---
 Kopieer dit bestand om iets aan te kondigen op de homepage. De mededeling
 is alleen zichtbaar van **vanaf** tot en met **tot** (datums als JJJJ-MM-DD);
