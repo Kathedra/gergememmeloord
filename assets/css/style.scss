@@ -1,19 +1,72 @@
 ---
 ---
 
-/* Kleuren afgeleid van de aangeleverde dia's (bruine balk, crème, wit). */
+/* Kleuren afgeleid van de aangeleverde dia's (bruine balk, crème, wit).
+   Licht en donker delen dezelfde semantische variabelen; componenten
+   met witte tekst op bruin/baksteen (headerbalk, knoppen, footer,
+   hero) blijven in beide thema's gelijk — alleen vlakken, tekst- en
+   linkkleuren wisselen. */
+
+@mixin thema-licht {
+  color-scheme: light;
+  --bg: var(--cream);
+  --surface: #fff;
+  --line: #e3d5c7;
+  --line-soft: #e9e0d8;
+  --text: var(--ink);
+  --muted: #6f6257;
+  --link: var(--brown-dark);
+  --link-hover: var(--brown-deep);
+  --heading: var(--brown-deep);
+  --heading-2: var(--brown-dark);
+  --nav-bg: rgba(246, 241, 236, 0.92);
+  --nav-hover: var(--cream);
+  --img-dim: none;
+}
+
+/* Warm donker (bruine ondertoon, geen neutraal grijs) zodat het bij
+   het merk blijft. Tekst- en linkkleuren zijn gecontroleerd op
+   WCAG-contrast tegen --bg en --surface. */
+@mixin thema-donker {
+  color-scheme: dark;
+  --bg: #211b16;
+  --surface: #2c241d;
+  --line: #493c31;
+  --line-soft: #3e332a;
+  --text: #ece4da;
+  --muted: #b7a99b;
+  --link: #d0b193;
+  --link-hover: #e4cdb2;
+  --heading: #ddc0a2;
+  --heading-2: #d0b193;
+  --nav-bg: rgba(33, 27, 22, 0.92);
+  --nav-hover: rgba(255, 255, 255, 0.07);
+  /* Grote lichte vlakken (zoals de kaart) iets dempen in het donker. */
+  --img-dim: brightness(0.85);
+}
+
 :root {
   --brown: #8f6c55;
   --brown-dark: #6d5241;
   --brown-deep: #4a382c;
   --cream: #f6f1ec;
   --ink: #2b241e;
-  --muted: #6f6257;
   /* Warm baksteenrood, past bij het bruin/crème-palet; alleen voor
      de uitzending-knop (opvallen tussen het bruin). */
   --brick: #9e3a25;
   --brick-dark: #7e2e1d;
+  @include thema-licht;
 }
+
+/* Donker volgt het apparaat (prefers-color-scheme), tenzij de bezoeker
+   met de knop in de footer expliciet iets anders gekozen heeft —
+   thema.js zet die keuze als data-thema op <html>, en een inline
+   script in de <head> herhaalt dat vóór het tekenen (geen flits). */
+@media (prefers-color-scheme: dark) {
+  html:not([data-thema="licht"]) { @include thema-donker; }
+}
+
+html[data-thema="donker"] { @include thema-donker; }
 
 * { box-sizing: border-box; }
 
@@ -41,8 +94,8 @@ html {
 
 body {
   margin: 0;
-  background: var(--cream);
-  color: var(--ink);
+  background: var(--bg);
+  color: var(--text);
   font-family: Georgia, "Times New Roman", serif;
   font-size: 1.05rem;
   line-height: 1.65;
@@ -70,8 +123,23 @@ body {
 
 .skip-link:focus { top: 0; }
 
-a { color: var(--brown-dark); }
-a:hover { color: var(--brown-deep); }
+a { color: var(--link); }
+a:hover { color: var(--link-hover); }
+
+/* Eén consistente, altijd zichtbare focusring voor toetsenbord-
+   gebruikers. currentColor werkt op elke ondergrond (wit op bruin,
+   bruin op crème) waar één vaste kleur ergens zou wegvallen. Voor
+   knoppen die op een contrasterend vlak stáán (ring valt buiten de
+   knop, op de pagina-achtergrond) is er een override, zie .btn-page
+   en .skip-link. */
+a:focus-visible,
+button:focus-visible,
+label:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.skip-link:focus-visible { outline-color: var(--link); }
 
 /* ---------- Header: bruine balk met overlappend rond logo (dia 2) ---------- */
 
@@ -199,7 +267,7 @@ a:hover { color: var(--brown-deep); }
   max-width: 100%;
   margin: 10px auto 0;
   padding: 0.7rem 1.6rem;
-  background: rgba(246, 241, 236, 0.92);
+  background: var(--nav-bg);
   border-radius: 999px;
   box-shadow: 0 8px 18px rgba(46, 32, 22, 0.18);
   -webkit-backdrop-filter: blur(6px);
@@ -207,7 +275,7 @@ a:hover { color: var(--brown-deep); }
 }
 
 .site-nav a {
-  color: var(--brown-dark);
+  color: var(--link);
   text-decoration: none;
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -218,7 +286,7 @@ a:hover { color: var(--brown-deep); }
 .site-nav a:hover { text-decoration: underline; }
 
 .site-nav a.active {
-  color: var(--brown-deep);
+  color: var(--link-hover);
   border-bottom: 2px solid var(--brown);
 }
 
@@ -260,7 +328,7 @@ a:hover { color: var(--brown-deep); }
   outline-offset: 2px;
 }
 
-.btn-page:focus-visible { outline-color: var(--brown-dark); }
+.btn-page:focus-visible { outline-color: var(--link); }
 
 .nav-login svg {
   width: 14px;
@@ -298,10 +366,10 @@ a:hover { color: var(--brown-deep); }
   text-align: center;
 }
 
-/* 5% pulse on touch */
+/* 3% pulse on touch */
 @keyframes uitzending-puls {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  50% { transform: scale(1.0); }
 }
 
 .uitzending-knop:hover {
@@ -331,8 +399,8 @@ a:hover { color: var(--brown-deep); }
    accentrand en een stevige schaduw: mededelingen moeten opvallen
    tussen de rustige vlakken eromheen. */
 .mededeling {
-  background: #fff;
-  border: 1px solid #e3d5c7;
+  background: var(--surface);
+  border: 1px solid var(--line);
   border-left: 6px solid var(--brown);
   border-radius: 12px;
   padding: 18px 24px 20px;
@@ -345,13 +413,15 @@ a:hover { color: var(--brown-deep); }
   letter-spacing: 0.14em;
   font-size: 0.72rem;
   font-weight: 700;
-  color: var(--brown);
+  /* --heading-2 i.p.v. het lichtere --brown: dat haalde op wit net
+     geen 4,5:1-contrast voor deze kleine tekst. */
+  color: var(--heading-2);
 }
 
 .mededeling h2 {
   margin: 0 0 0.3rem;
   font-size: 1.35rem;
-  color: var(--brown-deep);
+  color: var(--heading);
 }
 
 .mededeling p { margin: 0.3rem 0; }
@@ -436,7 +506,7 @@ a:hover { color: var(--brown-deep); }
 }
 
 .card {
-  background: #fff;
+  background: var(--surface);
   border-radius: 12px;
   border-top: 4px solid var(--brown);
   padding: 22px 26px 26px;
@@ -446,7 +516,7 @@ a:hover { color: var(--brown-deep); }
 .card h2 {
   margin: 0 0 0.5rem;
   font-size: 1.25rem;
-  color: var(--brown-dark);
+  color: var(--heading-2);
 }
 
 .card p { margin: 0 0 0.75rem; }
@@ -461,13 +531,13 @@ a:hover { color: var(--brown-deep); }
 }
 
 .page h1 {
-  color: var(--brown-deep);
+  color: var(--heading);
   font-size: clamp(1.6rem, 4vw, 2.2rem);
   margin: 1.2rem 0 0.6rem;
 }
 
 .page h2 {
-  color: var(--brown-dark);
+  color: var(--heading-2);
   font-size: 1.3rem;
   margin: 1.6rem 0 0.4rem;
 }
@@ -476,7 +546,7 @@ a:hover { color: var(--brown-deep); }
   width: 100%;
   border-collapse: collapse;
   margin: 1rem 0;
-  background: #fff;
+  background: var(--surface);
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 14px rgba(46, 32, 22, 0.08);
@@ -486,11 +556,13 @@ a:hover { color: var(--brown-deep); }
 .page td {
   text-align: left;
   padding: 0.65rem 1rem;
-  border-bottom: 1px solid #e9e0d8;
+  border-bottom: 1px solid var(--line-soft);
 }
 
 .page th {
-  background: var(--brown);
+  /* --brown-dark i.p.v. --brown: wit op --brown was 4,4:1, nét onder
+     de 4,5:1-grens voor tekst van dit formaat. */
+  background: var(--brown-dark);
   color: #fff;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -509,6 +581,9 @@ a:hover { color: var(--brown-deep); }
   height: auto;
   border-radius: 12px;
   box-shadow: 0 4px 14px rgba(46, 32, 22, 0.15);
+  /* In het donkere thema iets gedempt (--img-dim), anders is de
+     lichte kaart een schijnwerper op een donkere pagina. */
+  filter: var(--img-dim);
 }
 
 .kaart-bron {
@@ -531,7 +606,7 @@ a:hover { color: var(--brown-deep); }
   display: flex;
   flex-direction: column;
   gap: 2px;
-  background: #fff;
+  background: var(--surface);
   border-left: 4px solid var(--brown);
   border-radius: 10px;
   padding: 12px 16px;
@@ -547,7 +622,7 @@ a:hover { color: var(--brown-deep); }
 
 .agenda-titel {
   font-weight: 700;
-  color: var(--brown-deep);
+  color: var(--heading);
 }
 
 .agenda-locatie {
@@ -577,6 +652,36 @@ a:hover { color: var(--brown-deep); }
 .footer-inner p { margin: 0; }
 
 .site-footer a { color: #fff; }
+
+/* Klein themaknopje onderin de footer. Start met het hidden-attribuut
+   (in footer.html); thema.js haalt dat weg — zonder JS kán er niets
+   gekozen of onthouden worden, dus dan is er ook geen knop en volgt
+   de site gewoon het apparaatthema. */
+.footer-thema {
+  flex-basis: 100%;
+}
+
+.thema-knop {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.2rem 0.75rem;
+  background: transparent;
+  border: 1px solid rgba(243, 233, 225, 0.45);
+  border-radius: 999px;
+  color: inherit;
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.thema-knop:hover { background: rgba(255, 255, 255, 0.08); }
+
+.thema-knop svg {
+  width: 13px;
+  height: 13px;
+  flex: none;
+}
 
 /* ---------- Smalle schermen ---------- */
 
@@ -682,7 +787,7 @@ a:hover { color: var(--brown-deep); }
     gap: 0;
     /* Zelfde "frosted" look als de desktop-pil: doorschijnend crème
        met blur, in plaats van een dekkend wit paneel. */
-    background: rgba(246, 241, 236, 0.92);
+    background: var(--nav-bg);
     -webkit-backdrop-filter: blur(6px);
     backdrop-filter: blur(6px);
     border-radius: 0 0 14px 14px;
@@ -709,11 +814,11 @@ a:hover { color: var(--brown-deep); }
     text-align: left;
   }
 
-  .site-nav a:hover { background: var(--cream); text-decoration: none; }
+  .site-nav a:hover { background: var(--nav-hover); text-decoration: none; }
 
   .site-nav a.active {
     border-bottom: none;
-    background: #f6f1ec;
+    background: var(--nav-hover);
   }
 }
 
@@ -737,6 +842,10 @@ a:hover { color: var(--brown-deep); }
 }
 
 @media print {
+  /* Altijd licht afdrukken, ook als op het scherm donker gekozen is. */
+  html,
+  html[data-thema="donker"] { @include thema-licht; }
+
   .skip-link,
   .site-header,
   .site-footer { display: none; }

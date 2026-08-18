@@ -9,6 +9,18 @@
   <link rel="apple-touch-icon" href="{{ '/assets/img/apple-touch-icon.png' | relative_url }}">
   <link rel="manifest" href="{{ '/manifest.json' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  <script>
+    // Opgeslagen themakeuze (knop in de footer, zie thema.js) al vóór
+    // het tekenen toepassen — anders flitst de pagina eerst licht op
+    // voor wie donker gekozen heeft.
+    (function () {
+      var t;
+      try { t = localStorage.getItem("thema"); } catch (e) {}
+      if (t === "donker" || t === "licht") {
+        document.documentElement.setAttribute("data-thema", t);
+      }
+    })();
+  </script>
   {%- if page.url == "/" and site.hero_image and site.hero_image != "" %}
   <!-- De herofoto is een CSS-achtergrond en wordt anders pas ontdekt
        nadat de stylesheet geladen is — preload haalt hem meteen op. -->
@@ -19,6 +31,7 @@
     "@context": "https://schema.org",
     "@type": "Church",
     "name": {{ site.title | jsonify }},
+    "alternateName": "Moriakerk Emmeloord",
     "url": "{{ site.url }}{{ site.baseurl }}/",
     "email": {{ site.email | jsonify }},
     "address": {
@@ -28,6 +41,14 @@
       "addressLocality": {{ site.address.city | jsonify }},
       "addressCountry": "NL"
     },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 52.7176,
+      "longitude": 5.7455
+    },
+    "sameAs": [
+      "https://www.kerktijden.nl/gemeente/200/emmeloord-geref-gem-moriakerk"
+    ],
     "image": "{{ '/assets/img/og.jpg' | absolute_url }}"
   }
   </script>
