@@ -139,6 +139,10 @@ a:hover { color: var(--brown-deep); }
   font-weight: 700;
   font-size: clamp(1.2rem, 3.2vw, 1.9rem);
   letter-spacing: 0.02em;
+  /* Strakker dan de body-regelafstand: op smalle schermen breekt de
+     titel in twee regels en met 1.65 oogde dat als losse regels. */
+  line-height: 1.25;
+  text-wrap: balance;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
 }
 
@@ -162,11 +166,7 @@ a:hover { color: var(--brown-deep); }
   backdrop-filter: blur(6px);
 }
 
-/* :not(.nav-login) is nodig omdat deze regel anders (door hogere
-   specificity dan de losse .nav-login-klasse) de witte tekst/icoon-
-   kleur van de inlogknop in het uitklapmenu overschrijft — daardoor
-   was "Inloggen" daar onzichtbaar (bruine tekst op bruine knop). */
-.site-nav a:not(.nav-login) {
+.site-nav a {
   color: var(--brown-dark);
   text-decoration: none;
   text-transform: uppercase;
@@ -175,7 +175,7 @@ a:hover { color: var(--brown-deep); }
   padding-bottom: 2px;
 }
 
-.site-nav a:not(.nav-login):hover { text-decoration: underline; }
+.site-nav a:hover { text-decoration: underline; }
 
 .site-nav a.active {
   color: var(--brown-deep);
@@ -183,12 +183,10 @@ a:hover { color: var(--brown-deep); }
 }
 
 /* Inloggen is een actie (naar een externe app), geen paginalink —
-   daarom een eigen gevulde badge met icoon, los van de platte
-   menutekst. Staat twee keer in de HTML (--bar en --menu-variant):
-   op brede schermen zichtbaar in de headerbalk zelf (naast de
-   titel, ruim genoeg om niet als "enorm" op te vallen tussen de
-   kleine hoofdletterlinkjes), op smalle schermen verborgen in de
-   balk en in plaats daarvan onderaan het uitklapmenu. */
+   daarom een eigen gevulde badge met icoon in de headerbalk, los
+   van de platte menutekst. Op smalle schermen krimpt hij tot een
+   rond icoon-knopje naast de hamburger (tekst alleen nog voor
+   schermlezers), zie de media query. */
 .nav-login {
   display: inline-flex;
   align-items: center;
@@ -214,8 +212,6 @@ a:hover { color: var(--brown-deep); }
   height: 14px;
   flex: none;
 }
-
-.nav-login--menu { display: none; }
 
 /* ---------- Hoofdkolom ---------- */
 
@@ -347,7 +343,12 @@ a:hover { color: var(--brown-deep); }
 
 /* ---------- Gewone pagina's ---------- */
 
-.page { max-width: 760px; }
+.page {
+  max-width: 760px;
+  /* Gecentreerd binnen .site-main (1080px) — anders hangt de smallere
+     tekstkolom links en oogt de pagina scheef. */
+  margin: 0 auto;
+}
 
 .page h1 {
   color: var(--brown-deep);
@@ -451,8 +452,15 @@ a:hover { color: var(--brown-deep); }
 /* ---------- Smalle schermen ---------- */
 
 @media (max-width: 640px) {
-  /* Mobiel: zelfde opbouw als desktop (logo + titel op één regel
-     in de balk), enkel verkleind zodat het past. */
+  /* Mobiel: de "zwevende" balk werkt hier niet — de marges zijn zo
+     smal dat scrollende tekst zichtbaar langs en boven de balk
+     schuift. Daarom krijgt de header hier wél een dekkend crème
+     vlak; op desktop blijft hij transparant zweven. */
+  .site-header {
+    background: var(--cream);
+    padding: 12px 14px 10px;
+  }
+
   .header-bar {
     min-height: 52px;
     padding: 10px 10px 10px 62px;
@@ -469,9 +477,32 @@ a:hover { color: var(--brown-deep); }
     letter-spacing: 0.01em;
   }
 
-  /* Inloggen past niet meer los in de balk naast logo + titel +
-     hamburger — verhuist naar onderaan het uitklapmenu. */
-  .nav-login--bar { display: none; }
+  /* Voor de voluit geschreven knop is naast logo + titel + hamburger
+     geen ruimte — de knop krimpt tot een rond icoon-knopje, even
+     groot als de hamburger. De tekst blijft staan voor schermlezers
+     (zelfde clip-truc als .sr-only). */
+  .nav-login {
+    width: 38px;
+    height: 38px;
+    justify-content: center;
+    padding: 0;
+    border-radius: 50%;
+  }
+
+  .nav-login svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .nav-login span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
 
   .menu-toggle { display: flex; }
 
@@ -513,26 +544,16 @@ a:hover { color: var(--brown-deep); }
     transform: translateY(-6px) rotate(-45deg);
   }
 
-  /* :not(.nav-login) hier om dezelfde reden als hierboven: anders
-     wint deze regel (hogere specificity) weer van de eigen opmaak
-     van de inlogknop — nu niet de tekstkleur, maar wel de padding
-     en de hover-achtergrond. */
-  .site-nav a:not(.nav-login) {
+  .site-nav a {
     padding: 0.9rem 1.3rem;
     text-align: left;
   }
 
-  .site-nav a:not(.nav-login):hover { background: var(--cream); text-decoration: none; }
+  .site-nav a:hover { background: var(--cream); text-decoration: none; }
 
   .site-nav a.active {
     border-bottom: none;
     background: #f6f1ec;
-  }
-
-  .nav-login--menu {
-    display: inline-flex;
-    justify-content: center;
-    margin: 10px 1.3rem 2px;
   }
 }
 
