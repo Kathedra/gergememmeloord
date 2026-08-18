@@ -7,10 +7,21 @@ description: >-
   kerkdiensten elke zondag, live meeluisteren en contactgegevens.
 ---
 
+{% if site.uitzendingen.size > 0 %}
+{% for u in site.uitzendingen %}
+<a class="uitzending-knop" hidden href="{{ u.stream_url }}" target="_blank" rel="noopener"{% if u.vanaf %} data-vanaf="{{ u.vanaf | date: '%Y-%m-%d' }}"{% endif %}{% if u.tot %} data-tot="{{ u.tot | date: '%Y-%m-%d' }}"{% endif %}>
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="7 4 21 12 7 20"/></svg>
+  <span>{{ u.titel }}<span class="sr-only"> (opent in nieuw venster)</span></span>
+</a>
+{% endfor %}
+<script src="{{ '/assets/js/uitzending.js' | relative_url }}" defer></script>
+{% endif %}
+
 {% if site.mededelingen.size > 0 %}
 <section id="mededelingen" hidden aria-label="Mededelingen">
   {% for m in site.mededelingen %}
   <article class="mededeling" hidden{% if m.vanaf %} data-vanaf="{{ m.vanaf | date: '%Y-%m-%d' }}"{% endif %}{% if m.tot %} data-tot="{{ m.tot | date: '%Y-%m-%d' }}"{% endif %}>
+    <p class="mededeling-kicker">Mededeling</p>
     <h2>{{ m.titel | default: m.title }}</h2>
     {{ m.content | markdownify }}
   </article>

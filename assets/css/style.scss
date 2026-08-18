@@ -272,6 +272,39 @@ a:hover { color: var(--brown-deep); }
   padding: 10px 20px 48px;
 }
 
+/* ---------- Uitzending-knop (vrij mee te kijken dienst) ---------- */
+
+/* Eén regel, geen extra informatie: alleen de knoptekst uit de front
+   matter. Verschijnt/verdwijnt via uitzending.js (datumvenster). */
+.uitzending-knop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin: 14px 0 0;
+  padding: 0.85rem 1.2rem;
+  background: var(--brown-dark);
+  color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(46, 32, 22, 0.18);
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+.uitzending-knop:hover {
+  background: var(--brown-deep);
+  /* Expliciet wit i.v.m. de generieke a:hover-regel (zie .nav-login). */
+  color: #fff;
+}
+
+.uitzending-knop svg {
+  width: 15px;
+  height: 15px;
+  flex: none;
+}
+
 /* ---------- Mededelingen (tijdelijke aankondigingen) ---------- */
 
 #mededelingen {
@@ -280,19 +313,31 @@ a:hover { color: var(--brown-deep); }
   margin: 14px 0 20px;
 }
 
+/* Wit (feller dan de crème pagina-achtergrond), dikke bruine
+   accentrand en een stevige schaduw: mededelingen moeten opvallen
+   tussen de rustige vlakken eromheen. */
 .mededeling {
-  background: #fbf6f0;
+  background: #fff;
   border: 1px solid #e3d5c7;
-  border-left: 5px solid var(--brown);
+  border-left: 6px solid var(--brown);
   border-radius: 12px;
-  padding: 16px 22px;
-  box-shadow: 0 4px 14px rgba(46, 32, 22, 0.08);
+  padding: 18px 24px 20px;
+  box-shadow: 0 10px 24px rgba(46, 32, 22, 0.18);
+}
+
+.mededeling-kicker {
+  margin: 0 0 0.15rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--brown);
 }
 
 .mededeling h2 {
   margin: 0 0 0.3rem;
-  font-size: 1.2rem;
-  color: var(--brown-dark);
+  font-size: 1.35rem;
+  color: var(--brown-deep);
 }
 
 .mededeling p { margin: 0.3rem 0; }
