@@ -112,6 +112,21 @@ a:hover { color: var(--brown-deep); }
   border-bottom: 2px solid var(--brown);
 }
 
+/* Inloggen is een actie (naar een externe app), geen paginalink —
+   daarom een gevulde badge in plaats van een gewone menutekst. */
+.site-nav a.nav-login {
+  padding: 0.3rem 0.9rem;
+  background: var(--brown);
+  color: #fff;
+  border-radius: 999px;
+  letter-spacing: 0.06em;
+}
+
+.site-nav a.nav-login:hover {
+  background: var(--brown-dark);
+  text-decoration: none;
+}
+
 /* ---------- Hoofdkolom ---------- */
 
 .site-main {

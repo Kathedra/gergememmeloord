@@ -9,12 +9,10 @@ description: Contactgegevens van de Gereformeerde Gemeente Emmeloord.
 
 # Contact
 
-<!-- TODO: vul de echte gegevens in voordat de site live gaat -->
-
 ## Kerkgebouw
 
-[Straatnaam en huisnummer]
-[Postcode] Emmeloord
+Reestdal 25
+8302 JW Emmeloord
 
 ## Scriba
 

@@ -8,16 +8,13 @@ Statische website gebouwd met [Jekyll](https://jekyllrb.com/), bedoeld voor host
 - `_includes/header.html` — de bruine headerbalk met logo en het menu
 - `assets/css/style.scss` — alle styling; kleuren staan bovenin als CSS-variabelen
 - `assets/img/logo.svg` — het echte logo (potrace-trace), opgeschoond: hoekvlakken verwijderd, ring en kerk bruin gekleurd op een witte schijf
-- `index.md`, `diensten.md`, `meeluisteren.md`, `contact.md` — de pagina's
+- `index.md`, `diensten.md`, `wat-geloven-wij.md`, `over-ons.md`, `meeluisteren.md`, `contact.md` — de pagina's
 
-## Vóór livegang invullen (placeholders)
+`wat-geloven-wij.md` en `over-ons.md` staan er nog met placeholdertekst in: op de huidige site staat die inhoud alleen als PDF op SharePoint achter een inlog, die kon niet automatisch overgenomen worden. Vervang de placeholder door de echte tekst uit die PDF's.
 
-Zoek op `TODO` in de repo. In elk geval:
+## Inloggen (externe knop)
 
-1. **Aanvangstijden** in `diensten.md` — er staan nu aannames (9.30 / 15.30 uur).
-2. **Adres en scriba-gegevens** in `contact.md`.
-3. **Livestreamlink** in `meeluisteren.md` (wijst nu naar een placeholder-YouTube-kanaal).
-4. **iCal-feed** — zet de feed-URL in `_config.yml` bij `ical_feed` (zie hieronder).
+De "Inloggen"-knop in het menu en op de meeluisterpagina linkt naar het ledenportaal, ingesteld via `login_url` in `_config.yml` (nu `https://web.scipio-app.nl/app/#/login`). De link opent in een nieuw tabblad.
 
 ## Mededelingen (tijdelijke aankondigingen)
 

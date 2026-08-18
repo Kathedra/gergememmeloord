@@ -2,21 +2,23 @@
 layout: default
 title: Meeluisteren
 permalink: /meeluisteren/
-description: Luister live mee met de kerkdiensten van de Gereformeerde Gemeente Emmeloord.
+description: Meeluisteren met de kerkdiensten van de Gereformeerde Gemeente Emmeloord.
 ---
 
 <div class="page" markdown="1">
 
 # Meeluisteren
 
-Kunt u niet bij een dienst aanwezig zijn? Dan kunt u live meeluisteren of een eerdere dienst terugluisteren.
+U bent van harte uitgenodigd om de diensten bij ons in de kerk bij te wonen. Reguliere diensten zijn daarom niet live te volgen voor niet-leden.
 
-<!-- TODO: vervang onderstaande link door de echte livestream-/kanaallink -->
+<!-- TODO: klopt dit nog? Zijn er wél diensten die voor iedereen live te
+     volgen zijn (bijv. bijzondere diensten of jeugddiensten)? Zo ja,
+     vermeld dat hier en/of voeg een openbare meeluisterlink toe. -->
 
-<a class="btn btn-page" href="https://www.youtube.com/@kanaalnaam" rel="noopener">Live meeluisteren</a>
+## Voor leden
 
-## Eerdere diensten
+Bent u lid en wilt u een dienst meeluisteren? Log dan in op het ledenportaal.
 
-Eerder uitgezonden diensten zijn na afloop terug te luisteren via hetzelfde kanaal.
+<a class="btn btn-page" href="{{ site.login_url }}" target="_blank" rel="noopener">Inloggen</a>
 
 </div>

@@ -28,6 +28,4 @@ Naast de zondagse diensten zijn er door het jaar heen diensten op christelijke f
 </section>
 <script src="{{ '/assets/js/agenda.js' | relative_url }}" defer></script>
 
-<!-- TODO: vul aan met doordeweekse activiteiten (verenigingen, catechisatie) indien gewenst -->
-
 </div>

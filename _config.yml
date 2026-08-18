@@ -8,6 +8,9 @@ locale: nl_NL
 timezone: Europe/Amsterdam
 logo: /assets/img/logo.svg
 
+# Externe inlogomgeving voor leden (ledenportaal/streamtoegang).
+login_url: "https://web.scipio-app.nl/app/#/login"
+
 # url + baseurl bepalen de canonical-URL's in de SEO-tags en de sitemap.
 # Nu: projectsite op GitHub Pages. Bij verhuizing naar het eigen domein:
 #   url: "https://gergememmeloord.nl"  en  baseurl: ""

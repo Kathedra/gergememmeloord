@@ -22,22 +22,27 @@ description: >-
 <section class="hero">
   <div class="hero-box">
     <h1>Welkom bij de Gereformeerde Gemeente Emmeloord</h1>
-    <p>U bent hartelijk welkom in de diensten van de Gereformeerde Gemeente te Emmeloord. Iedere zondag komen wij als gemeente samen rondom het Woord van God.</p>
-    <p>Kunt u niet aanwezig zijn? De diensten zijn ook live mee te luisteren.</p>
-    <a class="btn" href="{{ '/meeluisteren/' | relative_url }}">Dienst meeluisteren</a>
+    <p>Hartelijk welkom op onze website. Hier kunt u lezen over <a href="{{ '/over-ons/' | relative_url }}">onze kerk</a> en <a href="{{ '/wat-geloven-wij/' | relative_url }}">waar we in geloven</a>.</p>
+    <p>U bent van harte uitgenodigd om de diensten bij ons in de kerk bij te wonen. Reguliere diensten zijn daarom niet live te volgen voor niet-leden.</p>
+    <a class="btn" href="{{ '/diensten/' | relative_url }}">Naar de diensten</a>
   </div>
 </section>
 
 <section class="cards">
   <div class="card">
+    <h2>Wat geloven wij</h2>
+    <p>Lees waar de Gereformeerde Gemeente Emmeloord in gelooft.</p>
+    <a href="{{ '/wat-geloven-wij/' | relative_url }}">Meer lezen &rarr;</a>
+  </div>
+  <div class="card">
+    <h2>Over ons</h2>
+    <p>Maak kennis met onze gemeente.</p>
+    <a href="{{ '/over-ons/' | relative_url }}">Meer lezen &rarr;</a>
+  </div>
+  <div class="card">
     <h2>Kerkdiensten</h2>
     <p>Elke zondag zijn er twee diensten. Bekijk de aanvangstijden en bijzondere diensten.</p>
     <a href="{{ '/diensten/' | relative_url }}">Naar de diensten &rarr;</a>
-  </div>
-  <div class="card">
-    <h2>Meeluisteren</h2>
-    <p>Luister live mee met de diensten of luister een eerdere dienst terug.</p>
-    <a href="{{ '/meeluisteren/' | relative_url }}">Naar meeluisteren &rarr;</a>
   </div>
   <div class="card">
     <h2>Contact</h2>
