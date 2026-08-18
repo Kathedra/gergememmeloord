@@ -1,7 +1,7 @@
 ---
 titel: Rouwdienst dhr. J. de Vries
 vanaf: 2026-01-05
-tot: 2026-01-11
+tot: 2026-8-18
 stream_url: "https://www.youtube.com/"
 ---
 Kopieer dit bestand om een vrij mee te kijken dienst op de homepage te
