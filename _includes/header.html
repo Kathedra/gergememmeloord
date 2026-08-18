@@ -7,7 +7,7 @@
     <a class="logo" href="{{ '/' | relative_url }}" aria-label="Naar de startpagina">
       <img src="{{ '/assets/img/logo.svg' | relative_url }}" alt="" width="108" height="108">
     </a>
-    <p class="site-title">{{ site.title }}</p>
+    <p class="site-title"><a href="{{ '/' | relative_url }}">{{ site.title }}</a></p>
 
     {% if site.login_url %}
       <a class="nav-login" href="{{ site.login_url }}" target="_blank" rel="noopener">
