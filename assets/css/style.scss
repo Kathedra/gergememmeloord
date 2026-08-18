@@ -51,10 +51,11 @@ a:hover { color: var(--brown-deep); }
   max-width: 1080px;
   margin: 0 auto;
   padding: 16px 20px 0;
-  background: var(--cream);
-  /* Subtiele onderrand zodat content dat onder de sticky header
-     doorschuift niet hard wordt afgesneden. */
-  box-shadow: 0 10px 14px -12px rgba(46, 32, 22, 0.25);
+  /* Geen dekkend vlak meer: de bruine balk en het menu hebben elk
+     hun eigen achtergrond + schaduw en "zweven" zo los boven de
+     content die eronderdoor scrollt, in plaats van op één groot
+     crème blok te staan. */
+  background: transparent;
 }
 
 .header-bar {
@@ -141,16 +142,31 @@ a:hover { color: var(--brown-deep); }
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
 }
 
+/* Eigen zwevende "pil" onder de balk (i.p.v. een volle, dekkende
+   streep) — vandaar de eigen achtergrond, ronde vorm en schaduw
+   hier, los van .site-header. */
 .site-nav {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 1.6rem;
-  padding: 0.9rem 0 0.7rem;
+  width: fit-content;
+  max-width: 100%;
+  margin: 10px auto 0;
+  padding: 0.7rem 1.6rem;
+  background: rgba(246, 241, 236, 0.92);
+  border-radius: 999px;
+  box-shadow: 0 8px 18px rgba(46, 32, 22, 0.18);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
 }
 
-.site-nav a {
+/* :not(.nav-login) is nodig omdat deze regel anders (door hogere
+   specificity dan de losse .nav-login-klasse) de witte tekst/icoon-
+   kleur van de inlogknop in het uitklapmenu overschrijft — daardoor
+   was "Inloggen" daar onzichtbaar (bruine tekst op bruine knop). */
+.site-nav a:not(.nav-login) {
   color: var(--brown-dark);
   text-decoration: none;
   text-transform: uppercase;
@@ -159,7 +175,7 @@ a:hover { color: var(--brown-deep); }
   padding-bottom: 2px;
 }
 
-.site-nav a:hover { text-decoration: underline; }
+.site-nav a:not(.nav-login):hover { text-decoration: underline; }
 
 .site-nav a.active {
   color: var(--brown-deep);
@@ -460,17 +476,24 @@ a:hover { color: var(--brown-deep); }
   .menu-toggle { display: flex; }
 
   /* Uitklapmenu: dichtgeklapt tot het hokje aangevinkt wordt. Puur
-     CSS (checkbox-hack) zodat het ook zonder JS werkt. */
+     CSS (checkbox-hack) zodat het ook zonder JS werkt. Overschrijft
+     hier bewust de "zwevende pil"-vorm van de desktopversie (breedte
+     en margin moeten terug naar normaal, anders wint fit-content
+     van hierboven het van left/right: 0 en blijft het menu smal). */
   .site-nav {
     display: none;
     position: absolute;
     left: 0;
     right: 0;
     top: 100%;
+    width: auto;
+    max-width: none;
+    margin: 0;
     flex-direction: column;
     align-items: stretch;
     gap: 0;
     background: #fff;
+    backdrop-filter: none;
     border-radius: 0 0 14px 14px;
     box-shadow: 0 14px 26px rgba(46, 32, 22, 0.2);
     padding: 6px 0 14px;
@@ -490,12 +513,16 @@ a:hover { color: var(--brown-deep); }
     transform: translateY(-6px) rotate(-45deg);
   }
 
-  .site-nav a {
+  /* :not(.nav-login) hier om dezelfde reden als hierboven: anders
+     wint deze regel (hogere specificity) weer van de eigen opmaak
+     van de inlogknop — nu niet de tekstkleur, maar wel de padding
+     en de hover-achtergrond. */
+  .site-nav a:not(.nav-login) {
     padding: 0.9rem 1.3rem;
     text-align: left;
   }
 
-  .site-nav a:hover { background: var(--cream); text-decoration: none; }
+  .site-nav a:not(.nav-login):hover { background: var(--cream); text-decoration: none; }
 
   .site-nav a.active {
     border-bottom: none;
