@@ -11,6 +11,14 @@ logo: /assets/img/logo.svg
 # Externe inlogomgeving voor leden (ledenportaal/streamtoegang).
 login_url: "https://web.scipio-app.nl/app/#/login"
 
+# Adres en e-mail: één bron voor footer en structured data
+# (de contactpagina noemt ze ook, in lopende tekst).
+email: scriba@gergememmeloord.nl
+address:
+  street: Reestdal 25
+  postcode: 8302 JW
+  city: Emmeloord
+
 # Optionele foto achter de welkomstbanner op de homepage. Pad naar
 # een bestand in assets/img/ (bijv. "/assets/img/hero.jpg"), of leeg
 # laten voor de bruine gradient. Er komt altijd een donkere overlay
@@ -26,6 +34,15 @@ baseurl: "/gergememmeloord"
 plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
+
+# Standaard voorbeeldafbeelding voor sociale media (og:image, o.a.
+# WhatsApp/link-previews) op elke pagina: een 1200x630-uitsnede van de
+# herofoto, klein genoeg om overal getoond te worden.
+defaults:
+  - scope:
+      path: ""
+    values:
+      image: /assets/img/og.jpg
 
 # Tijdelijke aankondigingen op de homepage: markdown-bestanden in
 # _mededelingen/ met 'vanaf' en 'tot' in de front matter (zie README).

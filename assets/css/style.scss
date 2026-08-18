@@ -30,6 +30,11 @@
   border: 0;
 }
 
+html {
+  /* Ankers (#...) niet achter de sticky header laten verdwijnen. */
+  scroll-padding-top: 170px;
+}
+
 body {
   margin: 0;
   background: var(--cream);
@@ -38,6 +43,23 @@ body {
   font-size: 1.05rem;
   line-height: 1.65;
 }
+
+/* Onzichtbaar tot hij toetsenbordfocus krijgt; dan als balkje
+   bovenaan in beeld, bóven de sticky header (z-index). */
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  padding: 0.6rem 1.4rem;
+  background: var(--brown-deep);
+  color: #fff;
+  border-radius: 0 0 10px 10px;
+  text-decoration: none;
+}
+
+.skip-link:focus { top: 0; }
 
 a { color: var(--brown-dark); }
 a:hover { color: var(--brown-deep); }
@@ -71,14 +93,13 @@ a:hover { color: var(--brown-deep); }
 }
 
 /* Checkbox-hack voor het mobiele menu: puur CSS, geen JS nodig, dus
-   het menu blijft werken ook als scripts geblokkeerd worden. Visueel
-   verborgen, maar via zijn <label> nog gewoon met toetsenbord te
-   bedienen. */
+   het menu blijft werken ook als scripts geblokkeerd worden.
+   Op desktop volledig weg (display: none) — anders staat er een
+   onzichtbaar, nutteloos vinkje in de tab-volgorde. In de mobiele
+   media query wordt hij weer focusbaar gemaakt (alleen visueel
+   verborgen), zodat het menu ook met het toetsenbord werkt. */
 .menu-toggle-input {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
+  display: none;
 }
 
 .menu-toggle {
@@ -206,6 +227,17 @@ a:hover { color: var(--brown-deep); }
   background: var(--brown-deep);
   text-decoration: none;
 }
+
+/* Gevulde knoppen staan op een bruine ondergrond waar de standaard
+   focusring kan wegvallen — eigen ring in de eigen tekstkleur.
+   .btn-page staat juist op de lichte achtergrond, dus daar bruin. */
+.nav-login:focus-visible,
+.btn:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.btn-page:focus-visible { outline-color: var(--brown-dark); }
 
 .nav-login svg {
   width: 14px;
@@ -456,24 +488,46 @@ a:hover { color: var(--brown-deep); }
      smal dat scrollende tekst zichtbaar langs en boven de balk
      schuift. Daarom krijgt de header hier wél een dekkend crème
      vlak; op desktop blijft hij transparant zweven. */
+  html { scroll-padding-top: 110px; }
+
   .site-header {
     background: var(--cream);
     padding: 12px 14px 10px;
   }
 
+  /* De checkbox is op desktop display:none (zie boven); hier moet hij
+     terug in de tab-volgorde, maar alleen visueel verborgen — de
+     focusring wordt op het label getekend (:focus-visible hierboven). */
+  .menu-toggle-input {
+    display: block;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
+
+  /* Mobiel: het overlappende badge-effect werkt hier niet — de badge
+     stak boven en onder de (lage) balk uit en oogde kapot. De badge
+     staat hier daarom gewoon ín de flexrij, volledig binnen de balk;
+     desktop houdt de overlap. */
   .header-bar {
-    min-height: 52px;
-    padding: 10px 10px 10px 62px;
+    min-height: 0;
+    padding: 8px;
+    gap: 6px;
   }
 
   .logo {
-    left: -12px;
-    width: 64px;
-    height: 64px;
+    position: static;
+    transform: none;
+    flex: none;
+    width: 48px;
+    height: 48px;
   }
 
   .site-title {
-    font-size: clamp(0.82rem, 4.6vw, 1.1rem);
+    /* Max ±1rem: groter past niet naast logo + knoppen en duwde de
+       titel naar drie regels; zo blijven het er twee. */
+    font-size: clamp(0.8rem, 4.2vw, 1rem);
     letter-spacing: 0.01em;
   }
 
@@ -482,8 +536,8 @@ a:hover { color: var(--brown-deep); }
      groot als de hamburger. De tekst blijft staan voor schermlezers
      (zelfde clip-truc als .sr-only). */
   .nav-login {
-    width: 38px;
-    height: 38px;
+    width: 36px;
+    height: 36px;
     justify-content: center;
     padding: 0;
     border-radius: 50%;
@@ -504,7 +558,11 @@ a:hover { color: var(--brown-deep); }
     white-space: nowrap;
   }
 
-  .menu-toggle { display: flex; }
+  .menu-toggle {
+    display: flex;
+    width: 36px;
+    height: 36px;
+  }
 
   /* Uitklapmenu: dichtgeklapt tot het hokje aangevinkt wordt. Puur
      CSS (checkbox-hack) zodat het ook zonder JS werkt. Overschrijft
@@ -558,11 +616,39 @@ a:hover { color: var(--brown-deep); }
 }
 
 @media (max-width: 360px) {
-  /* Zeer smalle telefoons: badge nog iets kleiner, tekst iets kleiner,
-     verder identieke opbouw (nog altijd één regel). */
-  .header-bar { padding: 10px 10px 10px 54px; }
+  /* Zeer smalle telefoons: badge en tekst nog iets kleiner, zodat
+     "Gemeente Emmeloord" op één regel blijft (twee regels totaal). */
+  .logo { width: 42px; height: 42px; }
 
-  .logo { width: 54px; height: 54px; left: -10px; }
+  .site-title { font-size: clamp(0.72rem, 4.4vw, 0.92rem); }
+}
 
-  .site-title { font-size: clamp(0.72rem, 5vw, 1rem); }
+/* ---------- Voorkeuren & print ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+@media print {
+  .skip-link,
+  .site-header,
+  .site-footer { display: none; }
+
+  body { background: #fff; }
+
+  .hero {
+    background: none;
+    box-shadow: none;
+    color: var(--ink);
+    border: 1px solid var(--brown);
+  }
+
+  .hero-box { border: none; background: none; }
+
+  .hero a { color: var(--ink); }
 }

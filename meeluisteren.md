@@ -19,6 +19,6 @@ U bent van harte uitgenodigd om de diensten bij ons in de kerk bij te wonen. Reg
 
 Bent u lid en wilt u een dienst meeluisteren? Log dan in op het ledenportaal.
 
-<a class="btn btn-page" href="{{ site.login_url }}" target="_blank" rel="noopener">Inloggen</a>
+<a class="btn btn-page" href="{{ site.login_url }}" target="_blank" rel="noopener">Inloggen<span class="sr-only"> (opent in nieuw venster)</span></a>
 
 </div>

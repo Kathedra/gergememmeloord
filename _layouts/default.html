@@ -7,10 +7,33 @@
   {% seo %}
   <link rel="icon" type="image/svg+xml" href="{{ '/assets/img/logo.svg' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  {%- if page.url == "/" and site.hero_image and site.hero_image != "" %}
+  <!-- De herofoto is een CSS-achtergrond en wordt anders pas ontdekt
+       nadat de stylesheet geladen is — preload haalt hem meteen op. -->
+  <link rel="preload" as="image" href="{{ site.hero_image | relative_url }}">
+  {%- endif %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Church",
+    "name": {{ site.title | jsonify }},
+    "url": "{{ site.url }}{{ site.baseurl }}/",
+    "email": {{ site.email | jsonify }},
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": {{ site.address.street | jsonify }},
+      "postalCode": {{ site.address.postcode | jsonify }},
+      "addressLocality": {{ site.address.city | jsonify }},
+      "addressCountry": "NL"
+    },
+    "image": "{{ '/assets/img/og.jpg' | absolute_url }}"
+  }
+  </script>
 </head>
 <body>
+  <a class="skip-link" href="#inhoud">Direct naar de inhoud</a>
   {% include header.html %}
-  <main class="site-main">
+  <main id="inhoud" class="site-main">
     {{ content }}
   </main>
   {% include footer.html %}

@@ -1,6 +1,10 @@
 <footer class="site-footer">
   <div class="footer-inner">
-    <p><strong>{{ site.title }}</strong></p>
+    <p>
+      <strong>{{ site.title }}</strong><br>
+      {{ site.address.street }}, {{ site.address.postcode }} {{ site.address.city }}<br>
+      <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+    </p>
     <p>&copy; {{ 'now' | date: "%Y" }} {{ site.title }}</p>
   </div>
 </footer>
