@@ -8,15 +8,19 @@ description: >-
 ---
 
 {% if site.uitzendingen.size > 0 %}
+<!-- De div-wrapper is verplicht: een <a> is span-level HTML en wordt
+     door kramdown verminkt als hij meerregelig los in de markdown
+     staat (letterlijke </a>-tekst op de pagina). Binnen een blok-
+     element blijft alles onaangeroerd. De width/height-attributen op
+     de svg zijn een vangnet voor een verouderde gecachte stylesheet. -->
+<div class="uitzendingen">
 {% for u in site.uitzendingen %}
 <a class="uitzending-knop" hidden href="{{ u.stream_url }}" target="_blank" rel="noopener"{% if u.vanaf %} data-vanaf="{{ u.vanaf | date: '%Y-%m-%d' }}"{% endif %}{% if u.tot %} data-tot="{{ u.tot | date: '%Y-%m-%d' }}"{% endif %}>
-  <!-- width/height-attributen als vangnet: zonder CSS (bijv. een
-       verouderde gecachte stylesheet) vulde het pictogram anders de
-       hele pagina. -->
   <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><polygon points="7 4 21 12 7 20"/></svg>
   <span>{{ u.titel }}<span class="sr-only"> (opent in nieuw venster)</span></span>
 </a>
 {% endfor %}
+</div>
 <script src="{{ '/assets/js/uitzending.js' | relative_url }}" defer></script>
 {% endif %}
 
