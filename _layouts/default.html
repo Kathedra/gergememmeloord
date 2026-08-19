@@ -3,6 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Vertelt browsers dat de pagina zelf licht én donker aankan.
+       Zonder deze meta legt o.a. Samsung Internet zijn eigen
+       "geforceerde donkere modus" (auto-inversie) over de lichte
+       pagina heen, in plaats van ons echte donkere thema te tonen. -->
+  <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#8f6c55">
   {% seo %}
   <link rel="icon" type="image/svg+xml" href="{{ '/assets/img/logo.svg' | relative_url }}">
@@ -49,7 +54,59 @@
     "sameAs": [
       "https://www.kerktijden.nl/gemeente/200/emmeloord-geref-gem-moriakerk"
     ],
-    "image": "{{ '/assets/img/og.jpg' | absolute_url }}"
+    "image": "{{ '/assets/img/og.jpg' | absolute_url }}",
+    "event": [
+      {
+        "@type": "Event",
+        "name": "Morgendienst",
+        "description": "Wekelijkse kerkdienst van de Gereformeerde Gemeente Emmeloord.",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "isAccessibleForFree": true,
+        "eventSchedule": {
+          "@type": "Schedule",
+          "byDay": "https://schema.org/Sunday",
+          "startTime": "09:30",
+          "repeatFrequency": "P1W",
+          "scheduleTimezone": "Europe/Amsterdam"
+        },
+        "location": {
+          "@type": "Place",
+          "name": "Moriakerk",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": {{ site.address.street | jsonify }},
+            "postalCode": {{ site.address.postcode | jsonify }},
+            "addressLocality": {{ site.address.city | jsonify }},
+            "addressCountry": "NL"
+          }
+        }
+      },
+      {
+        "@type": "Event",
+        "name": "Middagdienst",
+        "description": "Wekelijkse kerkdienst van de Gereformeerde Gemeente Emmeloord.",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "isAccessibleForFree": true,
+        "eventSchedule": {
+          "@type": "Schedule",
+          "byDay": "https://schema.org/Sunday",
+          "startTime": "16:00",
+          "repeatFrequency": "P1W",
+          "scheduleTimezone": "Europe/Amsterdam"
+        },
+        "location": {
+          "@type": "Place",
+          "name": "Moriakerk",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": {{ site.address.street | jsonify }},
+            "postalCode": {{ site.address.postcode | jsonify }},
+            "addressLocality": {{ site.address.city | jsonify }},
+            "addressCountry": "NL"
+          }
+        }
+      }
+    ]
   }
   </script>
 </head>
@@ -60,5 +117,6 @@
     {{ content }}
   </main>
   {% include footer.html %}
+  {% if site.cookie_banner %}{% include cookies.html %}{% endif %}
 </body>
 </html>

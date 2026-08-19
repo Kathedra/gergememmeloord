@@ -1,0 +1,44 @@
+# Ruimt maandelijks mededelingen en uitzendingen op waarvan de
+# einddatum ('tot' in de front matter) ruim voorbij is. Verlopen items
+# worden weliswaar niet meer getoond (mededelingen.js/uitzending.js),
+# maar blijven anders voorgoed in de repository en in de paginabron
+# staan. De voorbeeldbestanden blijven altijd staan.
+name: Verlopen items opschonen
+
+on:
+  schedule:
+    - cron: "0 7 1 * *" # de 1e van de maand, 07:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  opschonen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Items verwijderen waarvan 'tot' meer dan 60 dagen voorbij is
+        run: |
+          grens=$(date -d "60 days ago" +%Y-%m-%d)
+          for f in _mededelingen/*.md _uitzendingen/*.md; do
+            [ -e "$f" ] || continue
+            case "$f" in */voorbeeld.md) continue ;; esac
+            tot=$(awk -F': *' '/^tot:/ { gsub(/["'"'"']/, "", $2); print $2; exit }' "$f")
+            if [ -n "$tot" ] && [[ "$tot" < "$grens" ]]; then
+              echo "Verwijderen: $f (tot: $tot)"
+              git rm -q "$f"
+            fi
+          done
+
+      - name: Wijzigingen committen
+        run: |
+          if git diff --cached --quiet; then
+            echo "Niets op te schonen."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "chore: verlopen mededelingen/uitzendingen opgeschoond"
+            git push
+          fi

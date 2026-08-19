@@ -1,0 +1,9 @@
+# Links die de maandelijkse linkcontrole moet overslaan.
+# Eén patroon per regel (regex).
+
+# Ledenportaal: inlogomgeving, kan geautomatiseerde checks weigeren.
+https://web\.scipio-app\.nl.*
+
+# Google Maps routebeschrijving: blokkeert bots regelmatig (403),
+# terwijl de link voor bezoekers gewoon werkt.
+https://www\.google\.com/maps.*

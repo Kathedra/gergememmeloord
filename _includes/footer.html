@@ -7,6 +7,15 @@
     </p>
     <p>&copy; {{ 'now' | date: "%Y" }} {{ site.title }}</p>
 
+    <!-- Pagina's die niet in het hoofdmenu passen maar wel vindbaar
+         moeten zijn. -->
+    <nav class="footer-links" aria-label="Overige pagina's">
+      <a href="{{ '/diaconie/' | relative_url }}">Diaconie</a>
+      <a href="{{ '/giften/' | relative_url }}">Giften en collecten</a>
+      <a href="{{ '/anbi/' | relative_url }}">ANBI</a>
+      <a href="{{ '/privacyverklaring/' | relative_url }}">Privacyverklaring</a>
+    </nav>
+
     <!-- Themakeuze: hidden tot thema.js hem activeert (zonder JS valt
          er niets te kiezen; het apparaatthema blijft dan werken).
          De zichtbare tekst (.thema-tekst) is meteen de toegankelijke

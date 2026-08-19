@@ -1,0 +1,48 @@
+# Controleert maandelijks alle links op de gebouwde site (extern én
+# intern) en opent een issue als er dode links zijn. Handmatig starten
+# kan via het Actions-tabblad (workflow_dispatch).
+name: Links controleren
+
+on:
+  schedule:
+    - cron: "0 8 1 * *" # de 1e van de maand, 08:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  linkcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+
+      - name: Site bouwen
+        run: bundle exec jekyll build
+
+      - name: Links controleren
+        id: lychee
+        uses: lycheeverse/lychee-action@v2
+        with:
+          # --root-dir laat absolute paden (/gergememmeloord/...) naar
+          # de lokale build wijzen, zodat ook interne links meedoen.
+          args: >-
+            --no-progress
+            --root-dir "${{ github.workspace }}/_site"
+            "_site/**/*.html"
+          output: ./lychee-rapport.md
+          fail: false
+
+      - name: Issue openen bij dode links
+        if: steps.lychee.outputs.exit_code != 0
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: "Dode links op de website"
+          content-filepath: ./lychee-rapport.md
+          labels: onderhoud

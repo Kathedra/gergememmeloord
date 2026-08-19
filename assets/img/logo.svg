@@ -4,7 +4,15 @@
      ring + kerkgebouw zijn behouden en bruin gekleurd.
      Opbouw als badge (zoals dia 2): bruine buitenschijf in dezelfde
      kleur als de headerbalk, witte schijf, logo op 80% geschaald. -->
-<circle cx="1000" cy="1000" r="1000" fill="#8f6c55"/>
+<style>
+/* Alleen relevant wanneer de SVG als favicon dient: in een donkere
+   browserbalk krijgt de buitenring iets meer licht. De PNG-exports
+   (icon-192/512, apple-touch-icon) negeren deze CSS. */
+@media (prefers-color-scheme: dark) {
+  .ring { fill: #a5836b; }
+}
+</style>
+<circle class="ring" cx="1000" cy="1000" r="1000" fill="#8f6c55"/>
 <circle cx="1000" cy="1000" r="830" fill="#ffffff"/>
 <g transform="translate(1000,1000) scale(0.8) translate(-1000,-1000)">
 <g transform="translate(0,2000) scale(0.1,-0.1)" fill="#7d5c48" stroke="none">

@@ -20,6 +20,13 @@ Reestdal 25
 
 <p class="kaart-bron">Kaart: © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>-bijdragers &middot; klik op de kaart voor een routebeschrijving</p>
 
+## Bereikbaarheid en parkeren
+
+Bij de kerk is parkeergelegenheid.
+<!-- TODO: aanvullen met wat er feitelijk is: fietsenstalling,
+     rolstoeltoegankelijke ingang, ringleiding voor slechthorenden.
+     (Zie ook de TODO op de pagina Nieuw hier.) -->
+
 ## Scriba
 
 Voor vragen aan de kerkenraad kunt u contact opnemen met de scriba:
@@ -28,8 +35,24 @@ Voor vragen aan de kerkenraad kunt u contact opnemen met de scriba:
 
 E-mailadres: [scriba@gergememmeloord.nl](mailto:scriba@gergememmeloord.nl)
 
+## Wie kunt u waarvoor bereiken?
+
+- **Scriba** — algemene vragen en alles voor de kerkenraad:
+  [scriba@gergememmeloord.nl](mailto:scriba@gergememmeloord.nl)
+- **Diaconie** — hulp of ondersteuning nodig, of iemand aandragen die
+  dat nodig heeft: zie de pagina [Diaconie]({{ '/diaconie/' | relative_url }})
+- **Giften en collecten** — zie de pagina
+  [Giften en collecten]({{ '/giften/' | relative_url }})
+- **Deze website** — opmerkingen over de website kunt u kwijt via de
+  scriba.
+  <!-- TODO: bestaat website@gergememmeloord.nl (op de oude site werd
+       verwezen naar "de websitebeheerders")? Dan hier dat adres
+       noemen in plaats van de omweg via de scriba. -->
+<!-- TODO: eventueel aanvullen met koster (gebruik van het gebouw) en
+     ledenadministratie/kerkelijk bureau, met de juiste adressen. -->
+
 ## Een dienst bezoeken
 
-U bent van harte welkom in onze diensten. Aanmelden is niet nodig; kom gerust binnen. Zie de pagina [Diensten]({{ '/diensten/' | relative_url }}) voor de aanvangstijden.
+U bent van harte welkom in onze diensten. Aanmelden is niet nodig; kom gerust binnen. Zie de pagina [Diensten]({{ '/diensten/' | relative_url }}) voor de aanvangstijden, en de pagina [Nieuw hier]({{ '/nieuw-hier/' | relative_url }}) als u wilt weten wat u kunt verwachten.
 
 </div>

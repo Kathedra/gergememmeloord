@@ -19,7 +19,7 @@ De Gereformeerde Gemeente van Emmeloord is op 2 april 1958 gesticht en bestaat u
 
 Op dit moment is er geen dominee aan onze gemeente verbonden. Op zondag zijn er diensten om 9.30 en doorgaans 16.00. Tijdens deze diensten gaat een gastpredikant voor of leest een ouderling een preek. U bent van harte welkom om onze kerkdiensten bij te wonen. 
 
-In onze gemeente vinden naast de kerkdiensten allerlei activiteiten plaats. Zo is er een kinderclub, zijn er jeugdverenigingen, zijn er verschillende koren en diverse verenigingen voor volwassenen. Op de verenigingsavonden wordt aan Bijbelstudie gedaan en zijn er ontspannende activiteiten. Onder het tabblad ‘Verenigingen’ treft u hierover meer informatie aan. 
+In onze gemeente vinden naast de kerkdiensten allerlei activiteiten plaats. Zo is er een kinderclub, zijn er jeugdverenigingen, zijn er verschillende koren en diverse verenigingen voor volwassenen. Op de verenigingsavonden wordt aan Bijbelstudie gedaan en zijn er ontspannende activiteiten. 
 
  
 

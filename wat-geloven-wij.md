@@ -9,6 +9,15 @@ description: Waar de Gereformeerde Gemeente Emmeloord in gelooft.
 
 # Wat geloven wij
 
+<!-- Automatische inhoudsopgave (kramdown {:toc}); welke koppen
+     meedoen staat in _config.yml (kramdown: toc_levels). -->
+<nav class="inhoudsopgave" aria-label="Inhoudsopgave" markdown="1">
+Op deze pagina:
+
+* Inhoud
+{:toc}
+</nav>
+
 ## Een goed begin 
 
 Het begin van de Bijbel deelt ons mee dat God de hemel en de aarde geschapen (uit niets gemaakt) heeft: zon, maan, sterren, de aarde, bomen, planten, vogels, vissen en ten slotte, als kroon op de schepping, de mens. Het doel van de schepping is dat alles tot eer van God leeft. In het begin was er een volkomen harmonie met elkaar: dieren en mensen onderling én de mens met God (Genesis 1-2). 

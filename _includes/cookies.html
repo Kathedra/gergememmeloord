@@ -1,0 +1,27 @@
+<!-- Cookiemelding. Wordt alleen meegebouwd als cookie_banner in
+     _config.yml op true staat. Werking:
+
+     - cookies.js toont deze melding zolang er geen keuze is
+       opgeslagen (localStorage-sleutel "cookies": "ja" of "nee").
+     - Scripts die cookies (of vergelijkbare opslag) gebruiken, zet je
+       NIET als gewoon <script> in de site, maar zó:
+
+         <script type="text/plain" data-cookies src="..."></script>
+
+       Door type="text/plain" voert de browser ze niet uit; cookies.js
+       activeert ze pas ná toestemming. Inline scripts kunnen ook
+       (zelfde type + data-cookies, code in de tag).
+     - Beschrijf in privacyverklaring.md wélke cookies er zijn; daar
+       staat ook de knop "Cookievoorkeuren aanpassen" (#cookie-voorkeuren)
+       waarmee de bezoeker de keuze kan herzien. -->
+<div id="cookie-banner" class="cookie-banner" hidden role="region" aria-label="Cookiemelding">
+  <p>Deze website wil cookies gebruiken. Zonder uw toestemming worden
+  die niet geplaatst. Zie de
+  <a href="{{ '/privacyverklaring/' | relative_url }}">privacyverklaring</a>
+  voor meer informatie.</p>
+  <div class="cookie-knoppen">
+    <button type="button" id="cookie-accepteren" class="btn btn-page">Accepteren</button>
+    <button type="button" id="cookie-weigeren" class="btn btn-page cookie-weigeren">Weigeren</button>
+  </div>
+</div>
+<script src="{{ '/assets/js/cookies.js' | relative_url }}" defer></script>

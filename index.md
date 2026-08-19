@@ -46,6 +46,15 @@ description: >-
   </div>
 </section>
 
+{% if site.ical_feed and site.ical_feed != "" %}
+<!-- Eerstvolgende dienst uit dezelfde iCal-feed als de agenda op de
+     dienstenpagina. Verschijnt pas als eerstvolgende.js de feed heeft
+     kunnen laden; mislukt dat (bijv. CORS), dan blijft de regel
+     gewoon verborgen. -->
+<p id="eerstvolgende" class="eerstvolgende" hidden data-feed="{{ site.ical_feed }}"></p>
+<script src="{{ '/assets/js/eerstvolgende.js' | relative_url }}" defer></script>
+{% endif %}
+
 <section class="cards">
   <div class="card">
     <h2>Wat geloven wij</h2>

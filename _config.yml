@@ -54,6 +54,18 @@ collections:
   uitzendingen:
     output: false
 
+# Cookiemelding: op false staat er geen banner en plaatst de site
+# niets. Zet dit op true zodra er iets bijkomt dat cookies of
+# vergelijkbare opslag gebruikt; zie _includes/cookies.html voor hoe
+# zo'n script pas ná toestemming geladen wordt, en beschrijf de
+# cookies in privacyverklaring.md.
+cookie_banner: false
+
+# Inhoudsopgaven ({:toc}, o.a. op wat-geloven-wij): alleen h2/h3,
+# anders staat de paginatitel (h1) in zijn eigen inhoudsopgave.
+kramdown:
+  toc_levels: 2..3
+
 # Volledige https-URL van een .ics-feed voor de agenda op de
 # dienstenpagina (webcal:// wordt automatisch als https opgehaald).
 # Leeg laten = agenda-sectie verborgen.
@@ -64,6 +76,7 @@ ical_feed: "https://api.kerktijden.nl/data/kerktijden/gemeente/200/ical"
 
 exclude:
   - README.md
+  - BEHEER.md
   - Gemfile
   - Gemfile.lock
   - vendor
