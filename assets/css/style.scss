@@ -435,8 +435,20 @@ label:focus-visible {
 
 .mededeling p { margin: 0.3rem 0; }
 
-/* Foto bij een mededeling: past zich aan de kaart aan en krijgt ook
-   een hoogtegrens, zodat een staande foto de kaart niet uitrekt. */
+/* De kaart op de startpagina toont alleen titel + knop; de tekst en de
+   foto staan op de eigen pagina van de mededeling. Twee klassen diep,
+   anders wint de latere margin-top van .btn. */
+.mededeling .mededeling-knop { margin-top: 0.8rem; }
+
+/* ---------- Eigen pagina van een mededeling ---------- */
+
+.mededeling-pagina .mededeling-kicker { margin-bottom: 0.3rem; }
+
+/* Foto bij een mededeling: nooit breder dan de kolom en met een
+   hoogtegrens, zodat een staande foto de pagina niet uitrekt.
+   Vergroten kan via de overlay (mededeling-zoom.js) of, zonder
+   JavaScript, doordat de link het fotobestand zelf opent. */
+.mededeling-pagina img,
 .mededeling img {
   display: block;
   max-width: 100%;
@@ -446,6 +458,75 @@ label:focus-visible {
   margin: 0.8rem 0 0.2rem;
   border-radius: 10px;
 }
+
+.mededeling-foto {
+  display: inline-block;
+  max-width: 100%;
+  cursor: zoom-in;
+  text-decoration: none;
+}
+
+.mededeling-foto img { box-shadow: 0 6px 18px rgba(46, 32, 22, 0.18); }
+
+.mededeling-foto-hint {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.mededeling-foto:hover .mededeling-foto-hint { color: var(--link-hover); }
+
+.terug { margin-top: 1.8rem; }
+
+/* Overlay met de vergrote foto. Standaard past de foto op het scherm;
+   een klik erop schakelt naar werkelijke grootte (dan scrollt de
+   overlay). Achtergrond bewust bijna zwart in beide thema's. */
+.foto-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  overflow: auto;
+  background: rgba(20, 14, 10, 0.96);
+}
+
+.foto-overlay img {
+  max-width: 100%;
+  max-height: 100%;
+  margin: auto;
+  border-radius: 8px;
+  cursor: zoom-in;
+}
+
+.foto-overlay.ingezoomd img {
+  max-width: none;
+  max-height: none;
+  cursor: zoom-out;
+}
+
+.foto-sluiten {
+  position: fixed;
+  top: 12px;
+  right: 16px;
+  width: 44px;
+  height: 44px;
+  font: inherit;
+  font-size: 1.8rem;
+  line-height: 1;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.foto-sluiten:hover { background: rgba(0, 0, 0, 0.7); }
+
+/* Achtergrondpagina niet mee laten scrollen zolang de overlay openstaat. */
+body.overlay-open { overflow: hidden; }
 
 /* ---------- Hero: omlijnd paneel op bruin vlak (dia 1) ---------- */
 

@@ -1,8 +1,10 @@
 # Ruimt maandelijks mededelingen en uitzendingen op waarvan de
 # einddatum ('tot' in de front matter) ruim voorbij is. Verlopen items
-# worden weliswaar niet meer getoond (mededelingen.js/uitzending.js),
-# maar blijven anders voorgoed in de repository en in de paginabron
-# staan. De voorbeeldbestanden blijven altijd staan.
+# worden weliswaar niet meer op de startpagina getoond
+# (mededelingen.js/uitzending.js), maar blijven anders voorgoed in de
+# repository staan — en bij een mededeling blijft ook de eigen pagina
+# (/mededelingen/...) bereikbaar. De foto bij een mededeling gaat mee;
+# de voorbeeldbestanden blijven altijd staan.
 name: Verlopen items opschonen
 
 on:
@@ -29,6 +31,13 @@ jobs:
             if [ -n "$tot" ] && [[ "$tot" < "$grens" ]]; then
               echo "Verwijderen: $f (tot: $tot)"
               git rm -q "$f"
+              # De foto bij een mededeling heet net zo als het
+              # markdown-bestand; die zou anders als wees achterblijven.
+              foto="assets/img/mededelingen/$(basename "$f" .md).jpg"
+              if [ -e "$foto" ]; then
+                echo "Verwijderen: $foto"
+                git rm -q "$foto"
+              fi
             fi
           done
 

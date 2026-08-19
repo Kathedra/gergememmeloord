@@ -1,0 +1,26 @@
+---
+layout: default
+---
+{%- comment -%}
+  Eigen pagina per mededeling (collectie _mededelingen, output: true).
+  Op de startpagina staat alleen de titel met een knop hierheen; de
+  tekst en de foto staan hier. De front matter komt meestal van het
+  formulier (gerge-formulier): title/titel, vanaf, tot en optioneel
+  afbeelding (pad binnen de site, zonder baseurl — relative_url zet
+  die ervoor).
+{%- endcomment -%}
+<article class="page mededeling-pagina">
+  <p class="mededeling-kicker">Mededeling</p>
+  <h1>{{ page.titel | default: page.title }}</h1>
+
+  {{ content }}
+
+  {%- if page.afbeelding and page.afbeelding != "" %}
+  <!-- Zonder JavaScript opent de link de foto zelf (dan zoomt de
+       browser); mededeling-zoom.js maakt er een overlay van. -->
+  <a class="mededeling-foto" href="{{ page.afbeelding | relative_url }}" aria-label="Foto vergroot bekijken"><img src="{{ page.afbeelding | relative_url }}" alt="Foto bij de mededeling {{ page.titel | default: page.title }}" loading="lazy"><span class="mededeling-foto-hint">Klik voor een grotere weergave</span></a>
+  <script src="{{ '/assets/js/mededeling-zoom.js' | relative_url }}" defer></script>
+  {%- endif %}
+
+  <p class="terug"><a href="{{ '/' | relative_url }}">&larr; Terug naar de startpagina</a></p>
+</article>

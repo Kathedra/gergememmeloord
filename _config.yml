@@ -43,12 +43,24 @@ defaults:
       path: ""
     values:
       image: /assets/img/og.jpg
+  # Mededelingpagina's: eigen opmaak, en buiten de sitemap — ze zijn
+  # tijdelijk en zouden er als verlopen pagina's in blijven staan.
+  - scope:
+      path: ""
+      type: mededelingen
+    values:
+      layout: mededeling
+      sitemap: false
 
 # Tijdelijke aankondigingen op de homepage: markdown-bestanden in
 # _mededelingen/ met 'vanaf' en 'tot' in de front matter (zie README).
+# output: true, want elke mededeling krijgt een eigen pagina
+# (/mededelingen/<bestandsnaam>/) waar de tekst en de foto staan; op de
+# startpagina staat alleen de titel met een knop "Meer informatie".
 collections:
   mededelingen:
-    output: false
+    output: true
+    permalink: /mededelingen/:name/
   # Vrij mee te kijken uitzendingen: één knop op de homepage binnen
   # het datumvenster (zie _uitzendingen/voorbeeld.md).
   uitzendingen:

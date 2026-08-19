@@ -35,12 +35,17 @@ description: >-
 {% endif %}
 
 {% if site.mededelingen.size > 0 %}
+<!-- Alleen titel + knop: de tekst en de eventuele foto staan op de
+     eigen pagina van de mededeling (_layouts/mededeling.html). Zo
+     blijft de startpagina kort, ook bij een lange aankondiging. De
+     knop staat op één regel — kramdown verminkt anders een
+     meerregelige <a> (zie CLAUDE.md). -->
 <section id="mededelingen" hidden aria-label="Mededelingen">
   {% for m in site.mededelingen %}
   <article class="mededeling" hidden{% if m.vanaf %} data-vanaf="{{ m.vanaf | date: '%Y-%m-%d' }}"{% endif %}{% if m.tot %} data-tot="{{ m.tot | date: '%Y-%m-%d' }}"{% endif %}>
     <p class="mededeling-kicker">Mededeling</p>
     <h2>{{ m.titel | default: m.title }}</h2>
-    {{ m.content | markdownify }}
+    <a class="btn btn-page mededeling-knop" href="{{ m.url | relative_url }}">Meer informatie<span class="sr-only"> over {{ m.titel | default: m.title }}</span></a>
   </article>
   {% endfor %}
 </section>

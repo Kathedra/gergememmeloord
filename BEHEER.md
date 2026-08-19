@@ -24,18 +24,34 @@ potloodje, wijzig de tekst en kies **Commit changes**.
 
    ```
    ---
-   titel: Kerstzangavond
+   title: Kerstzangavond
    vanaf: 2026-12-01
    tot: 2026-12-20
+   afbeelding: /assets/img/mededelingen/kerstzangavond.jpg
    ---
 
    De tekst van de mededeling. Gewone opmaak werkt hier,
    zoals **vet** en [een link](https://voorbeeld.nl).
    ```
 
-4. De mededeling verschijnt vanzelf op `vanaf` en verdwijnt vanzelf na
+   De regel `afbeelding` is optioneel — laat hem weg als er geen foto
+   bij hoort. Het pad begint met `/assets/`, zonder `/gergememmeloord`
+   ervoor; de site zet dat er zelf voor.
+
+4. Op de startpagina komt alleen de **titel** met een knop *Meer
+   informatie*. Die knop leidt naar de eigen pagina van de mededeling
+   (`/mededelingen/kerstzangavond/`), waar de tekst en de foto staan;
+   de foto kan de bezoeker daar vergroot bekijken.
+
+5. De mededeling verschijnt vanzelf op `vanaf` en verdwijnt vanzelf na
    `tot` (datums als JJJJ-MM-DD). Verlopen bestanden worden na twee
-   maanden automatisch opgeruimd.
+   maanden automatisch opgeruimd — het markdown-bestand is de pagina,
+   dus die verdwijnt mee, en de foto ook.
+
+Wie liever niet in GitHub werkt, gebruikt het websiteformulier (de
+aparte webapp, tabblad **Mededeling**): titel, tekst, foto en de
+periode invullen is genoeg — het bestand hierboven wordt dan
+automatisch aangemaakt.
 
 ## Een vrij mee te kijken uitzending aankondigen
 
