@@ -7,6 +7,16 @@ description: >-
   kerkdiensten elke zondag, live meeluisteren en contactgegevens.
 ---
 
+{% if site.ical_feed and site.ical_feed != "" %}
+<!-- Eerstvolgende dienst uit dezelfde iCal-feed als de agenda op de
+     dienstenpagina; bewust bovenaan, direct onder de header — het is
+     de meest actuele regel van de pagina. Verschijnt pas als
+     eerstvolgende.js de feed heeft kunnen laden; mislukt dat
+     (bijv. CORS), dan blijft de regel gewoon verborgen. -->
+<p id="eerstvolgende" class="eerstvolgende" hidden data-feed="{{ site.ical_feed }}"></p>
+<script src="{{ '/assets/js/eerstvolgende.js' | relative_url }}" defer></script>
+{% endif %}
+
 {% if site.uitzendingen.size > 0 %}
 <!-- De div-wrapper is verplicht: een <a> is span-level HTML en wordt
      door kramdown verminkt als hij meerregelig los in de markdown
@@ -45,15 +55,6 @@ description: >-
     <a class="btn" href="{{ '/diensten/' | relative_url }}">Naar de diensten</a>
   </div>
 </section>
-
-{% if site.ical_feed and site.ical_feed != "" %}
-<!-- Eerstvolgende dienst uit dezelfde iCal-feed als de agenda op de
-     dienstenpagina. Verschijnt pas als eerstvolgende.js de feed heeft
-     kunnen laden; mislukt dat (bijv. CORS), dan blijft de regel
-     gewoon verborgen. -->
-<p id="eerstvolgende" class="eerstvolgende" hidden data-feed="{{ site.ical_feed }}"></p>
-<script src="{{ '/assets/js/eerstvolgende.js' | relative_url }}" defer></script>
-{% endif %}
 
 <section class="cards">
   <div class="card">

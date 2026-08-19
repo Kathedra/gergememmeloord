@@ -498,17 +498,20 @@ label:focus-visible {
 
 /* ---------- Eerstvolgende dienst (startpagina) ---------- */
 
-/* Zelfde vormtaal als een agenda-item; gevuld en zichtbaar gemaakt
-   door eerstvolgende.js zodra de iCal-feed geladen is. */
+/* Bovenaan de pagina, direct onder de header; bewust met een rand
+   rondom zodat het als eigen mededelingetje leest en niet wegvalt
+   tegen de achtergrond. Gevuld en zichtbaar gemaakt door
+   eerstvolgende.js zodra de iCal-feed geladen is. */
 .eerstvolgende {
   width: fit-content;
   max-width: 100%;
-  margin: 14px auto 0;
+  margin: 0 auto;
   padding: 0.55rem 1.3rem;
   background: var(--surface);
+  border: 1px solid var(--brown);
   border-left: 4px solid var(--brown);
   border-radius: 10px;
-  box-shadow: 0 4px 14px rgba(46, 32, 22, 0.08);
+  box-shadow: 0 4px 14px rgba(46, 32, 22, 0.12);
 }
 
 .eerstvolgende strong { color: var(--heading); }
@@ -871,31 +874,42 @@ label:focus-visible {
      CSS (checkbox-hack) zodat het ook zonder JS werkt. Overschrijft
      hier bewust de "zwevende pil"-vorm van de desktopversie (breedte
      en margin moeten terug naar normaal, anders wint fit-content
-     van hierboven het van left/right: 0 en blijft het menu smal). */
+     van hierboven het van left/right).
+
+     Het menu is een verlengstuk van de bruine balk: zelfde kleur en
+     breedte, naadloos eraan vast (de balk verliest zijn onderronding
+     zolang het menu openstaat, zie hieronder). De left/right van
+     14px en de top van calc(100% - 10px) spiegelen de padding van
+     .site-header (12px 14px 10px) — samen aanpassen. */
   .site-nav {
     display: none;
     position: absolute;
-    left: 0;
-    right: 0;
-    top: 100%;
+    left: 14px;
+    right: 14px;
+    top: calc(100% - 10px);
     width: auto;
     max-width: none;
     margin: 0;
     flex-direction: column;
     align-items: stretch;
     gap: 0;
-    /* Zelfde "frosted" look als de desktop-pil: doorschijnend crème
-       met blur, in plaats van een dekkend wit paneel. */
-    background: var(--nav-bg);
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px);
+    background: var(--brown);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
     border-radius: 0 0 14px 14px;
-    box-shadow: 0 14px 26px rgba(46, 32, 22, 0.2);
-    padding: 6px 0 14px;
+    box-shadow: 0 14px 26px rgba(46, 32, 22, 0.28);
+    padding: 2px 8px 10px;
     z-index: 90;
   }
 
   .menu-toggle-input:checked ~ .site-nav { display: flex; }
+
+  /* Balk en open menu vormen samen één vlak: onderhoeken van de balk
+     recht zolang het menu uitgeklapt is. */
+  .menu-toggle-input:checked ~ .header-bar {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
 
   /* X-vorm van de drie streepjes als het menu openstaat. */
   .menu-toggle-input:checked ~ .header-bar .menu-toggle-bar:nth-child(1) {
@@ -908,16 +922,25 @@ label:focus-visible {
     transform: translateY(-6px) rotate(-45deg);
   }
 
+  /* Witte menutekst op het bruin van de balk; eigen hoverkleur i.v.m.
+     de generieke a:hover-regel (zelfde val als .nav-login). */
   .site-nav a {
-    padding: 0.9rem 1.3rem;
+    padding: 0.9rem 1.1rem;
     text-align: left;
+    color: #fff;
+    border-radius: 8px;
   }
 
-  .site-nav a:hover { background: var(--nav-hover); text-decoration: none; }
+  .site-nav a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    text-decoration: none;
+  }
 
   .site-nav a.active {
     border-bottom: none;
-    background: var(--nav-hover);
+    background: rgba(255, 255, 255, 0.16);
+    color: #fff;
   }
 }
 
