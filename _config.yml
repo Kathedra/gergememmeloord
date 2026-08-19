@@ -54,11 +54,21 @@ collections:
   uitzendingen:
     output: false
 
+# Google Analytics (GA4): vul hier de measurement-ID in
+# (G-XXXXXXXXXX, te vinden op analytics.google.com onder
+# Beheer → Gegevensstromen → je site). Leeg = geen Analytics.
+# Zodra hier een ID staat, verschijnen vanzelf de cookiemelding én de
+# uitleg op de privacyverklaring; Analytics laadt pas nadat de
+# bezoeker op "Accepteren" heeft geklikt (zie _includes/analytics.html)
+# en alleen op de echte site (niet bij lokaal bekijken).
+google_analytics: ""
+
 # Cookiemelding: op false staat er geen banner en plaatst de site
-# niets. Zet dit op true zodra er iets bijkomt dat cookies of
-# vergelijkbare opslag gebruikt; zie _includes/cookies.html voor hoe
-# zo'n script pas ná toestemming geladen wordt, en beschrijf de
-# cookies in privacyverklaring.md.
+# niets — behalve als hierboven een Analytics-ID is ingevuld, dan is
+# de melding sowieso nodig en verschijnt hij automatisch. Zet dit op
+# true zodra er (ander) cookiegebruik bijkomt; zie _includes/cookies.html
+# voor hoe zo'n script pas ná toestemming geladen wordt, en beschrijf
+# de cookies in privacyverklaring.md.
 cookie_banner: false
 
 # Inhoudsopgaven ({:toc}, o.a. op wat-geloven-wij): alleen h2/h3,
@@ -77,6 +87,7 @@ ical_feed: "https://api.kerktijden.nl/data/kerktijden/gemeente/200/ical"
 exclude:
   - README.md
   - BEHEER.md
+  - CLAUDE.md
   - Gemfile
   - Gemfile.lock
   - vendor

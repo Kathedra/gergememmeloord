@@ -54,12 +54,22 @@ startpagina verschijnt binnen het datumvenster een rode knop met de
 - **Overige pagina's**: elk `.md`-bestand in de hoofdmap is een
   pagina (contact, over-ons, enzovoort).
 
-## Cookies
+## Cookies en statistieken
 
-De site plaatst geen cookies en toont geen cookiemelding. Komt er ooit
-iets bij dat cookies gebruikt: zet `cookie_banner: true` in
-`_config.yml` en lees de toelichting in `_includes/cookies.html`.
-Beschrijf de cookies ook in `privacyverklaring.md`.
+Zolang er geen cookiegebruik is ingesteld, plaatst de site geen
+cookies en toont hij geen cookiemelding.
+
+**Google Analytics aanzetten**: vul in `_config.yml` bij
+`google_analytics` de measurement-ID in (`G-XXXXXXXXXX`, te vinden op
+analytics.google.com onder Beheer → Gegevensstromen). Meer is het
+niet — de cookiemelding en de uitleg op de privacyverklaring
+verschijnen dan vanzelf, en Analytics meet alleen bezoekers die op
+"Accepteren" klikken. Weghalen van de ID zet alles weer uit.
+
+Komt er ooit iets anders bij dat cookies gebruikt: zet
+`cookie_banner: true` in `_config.yml` en lees de toelichting in
+`_includes/cookies.html`. Beschrijf de cookies ook in
+`privacyverklaring.md`.
 
 ## Automatische controles
 

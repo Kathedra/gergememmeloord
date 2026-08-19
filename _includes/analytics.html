@@ -1,0 +1,16 @@
+<!-- Google Analytics (GA4), alleen meegebouwd als site.google_analytics
+     is ingevuld én de site in productie draait (GitHub Pages bouwt met
+     JEKYLL_ENV=production; lokaal bekijken telt dus niet mee).
+
+     Beide scripts staan als type="text/plain" met data-cookies:
+     de browser voert ze NIET uit totdat cookies.js ze activeert nadat
+     de bezoeker op "Accepteren" heeft geklikt (zie _includes/cookies.html).
+     Wie weigert of niets kiest, wordt niet gemeten en krijgt geen
+     Analytics-cookies. -->
+<script type="text/plain" data-cookies src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
+<script type="text/plain" data-cookies>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag("js", new Date());
+  gtag("config", "{{ site.google_analytics }}");
+</script>

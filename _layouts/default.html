@@ -14,6 +14,10 @@
   <link rel="apple-touch-icon" href="{{ '/assets/img/apple-touch-icon.png' | relative_url }}">
   <link rel="manifest" href="{{ '/manifest.json' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  {%- assign ga_id = site.google_analytics | default: "" %}
+  {%- if jekyll.environment == "production" and ga_id != "" %}
+  {% include analytics.html %}
+  {%- endif %}
   <script>
     // Opgeslagen themakeuze (knop in de footer, zie thema.js) al vóór
     // het tekenen toepassen — anders flitst de pagina eerst licht op
@@ -117,6 +121,9 @@
     {{ content }}
   </main>
   {% include footer.html %}
-  {% if site.cookie_banner %}{% include cookies.html %}{% endif %}
+  {%- assign ga_id = site.google_analytics | default: "" %}
+  {%- if site.cookie_banner or ga_id != "" %}
+  {% include cookies.html %}
+  {%- endif %}
 </body>
 </html>
