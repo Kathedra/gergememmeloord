@@ -70,6 +70,15 @@ html[data-thema="donker"] { @include thema-donker; }
 
 * { box-sizing: border-box; }
 
+/* Een afbeelding mag nooit breder worden dan de kolom waarin hij
+   staat. Zonder deze basisregel liep een ingestuurde foto in een
+   mededeling (tot 1200px breed) dwars door de kaart heen; componenten
+   met eigen afmetingen (.logo img, .kaart img) winnen op specificity. */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 /* Eigen display-regels (grid/flex) mogen het hidden-attribuut
    nooit overrulen — daar leunt o.a. mededelingen.js op. */
 [hidden] { display: none !important; }
@@ -425,6 +434,18 @@ label:focus-visible {
 }
 
 .mededeling p { margin: 0.3rem 0; }
+
+/* Foto bij een mededeling: past zich aan de kaart aan en krijgt ook
+   een hoogtegrens, zodat een staande foto de kaart niet uitrekt. */
+.mededeling img {
+  display: block;
+  max-width: 100%;
+  max-height: 420px;
+  width: auto;
+  height: auto;
+  margin: 0.8rem 0 0.2rem;
+  border-radius: 10px;
+}
 
 /* ---------- Hero: omlijnd paneel op bruin vlak (dia 1) ---------- */
 
