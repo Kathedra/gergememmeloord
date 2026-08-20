@@ -14,7 +14,16 @@ bundle exec jekyll serve  # local dev server at http://localhost:4000, live rebu
 bundle exec jekyll build  # production build to _site/
 ```
 
-There is no test suite and no linter configured. Deployment is just `git push` to `main` — GitHub Pages builds and publishes automatically; there is no separate CI step to trigger.
+There is no test suite and no linter configured. GitHub Pages builds and publishes `main` automatically.
+
+**`main` is protected — work on a branch and merge via a pull request.** Since Aug 2026 nothing is pushed straight to `main`, not by the form app and not by hand (a ruleset rejects it; `github-actions[bot]` is on the bypass list for the monthly cleanup). Every pull request gets a full preview of the site built into a mirror repo, `kathedra/gergememmeloord-devtest`, at `/pr-<number>/` — that is where a change is checked before merging, since GitHub Pages can only serve one branch of this repo. Four workflows carry that:
+
+- `preview.yml` — builds the PR with `--unpublished --config _config.yml,_config_preview.yml --baseurl /gergememmeloord-devtest/pr-<n>`, pushes it into the mirror, comments the link on the PR, sends a Telegram message. For non-`formulier/**` branches it first overlays `_mededelingen`, `_uitzendingen` and `assets/img/mededelingen` from `main`, so a code branch previews against *current* content instead of whatever existed when it was cut (`git checkout origin/main -- <pad>` adds and overwrites but never deletes, so test files on the branch survive). Form branches are exempt because there the content change *is* the point — overlaying would undo a deletion.
+- `formulier-pr.yml` — on a push to `formulier/**`, opens the PR with the built-in `GITHUB_TOKEN`. This exists so the form app's PAT can stay **Contents-only**: it cannot open or merge anything. Requires the repo setting "Allow GitHub Actions to create and approve pull requests".
+- `inhoud-bewaker.yml` — required check: a non-form branch may only touch the three content paths if every changed file carries `published: false` (test content) or the PR has the `inhoud-ok` label. The job deliberately runs always and exits early instead of using a job-level `if:` — a skipped required check leaves the merge button waiting forever.
+- `preview-opruimen.yml` — removes `pr-<n>/` from the mirror when the PR closes.
+
+**Test content convention**: `published: false` = visible in previews (which build with `--unpublished`), never on the live site — that's what `voorbeeld.md` uses too. `*.lokaal.md` is gitignored for experiments that shouldn't leave the machine (relevant because commits here are made automatically).
 
 ## Architecture
 

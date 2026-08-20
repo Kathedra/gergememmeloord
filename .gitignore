@@ -4,3 +4,12 @@ _site/
 .bundle/
 vendor/
 Gemfile.lock
+
+# Lokaal proberen zonder dat het de repository in gaat: een mededeling
+# of uitzending met .lokaal.md in de naam blijft op deze computer (ook
+# buiten bereik van de automatische commits). Moet het juist wél in de
+# preview zichtbaar zijn, gebruik dan 'published: false' in een gewoon
+# bestand — zie CLAUDE.md en BEHEER.md.
+_mededelingen/*.lokaal.md
+_uitzendingen/*.lokaal.md
+assets/img/mededelingen/*.lokaal.*

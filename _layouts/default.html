@@ -9,6 +9,11 @@
        pagina heen, in plaats van ons echte donkere thema te tonen. -->
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#8f6c55">
+  {%- if site.omgeving == "preview" %}
+  <!-- Previewbouwsel (pull request): nooit laten indexeren, anders
+       staat een niet-goedgekeurde versie in Google. -->
+  <meta name="robots" content="noindex, nofollow">
+  {%- endif %}
   {% seo %}
   <link rel="icon" type="image/svg+xml" href="{{ '/assets/img/logo.svg' | relative_url }}">
   <link rel="apple-touch-icon" href="{{ '/assets/img/apple-touch-icon.png' | relative_url }}">
@@ -116,6 +121,9 @@
 </head>
 <body>
   <a class="skip-link" href="#inhoud">Direct naar de inhoud</a>
+  {%- if site.omgeving == "preview" %}
+  <p class="omgevingsbalk">Testomgeving — dit is een voorbeeldversie, niet de echte website.</p>
+  {%- endif %}
   {% include header.html %}
   <main id="inhoud" class="site-main">
     {{ content }}

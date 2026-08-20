@@ -87,6 +87,40 @@ Komt er ooit iets anders bij dat cookies gebruikt: zet
 `_includes/cookies.html`. Beschrijf de cookies ook in
 `privacyverklaring.md`.
 
+## Hoe een wijziging op de site komt (controle vooraf)
+
+Sinds augustus 2026 gaat niets meer rechtstreeks naar de website. Elke
+wijziging — van het formulier én van de beheerder zelf — loopt zo:
+
+1. De wijziging komt op een eigen tak in GitHub te staan.
+2. GitHub maakt daar automatisch een *pull request* van en bouwt een
+   **preview**: een volledige kopie van de site mét de wijziging, op
+   `kathedra.github.io/gergememmeloord-devtest/pr-<nummer>/`. Boven elke
+   previewpagina staat een rode balk "Testomgeving", en zoekmachines
+   negeren hem.
+3. De beheerder krijgt een Telegram-bericht met de link naar de preview
+   en naar de pull request.
+4. Klopt het? Dan klikt de beheerder in GitHub op **Merge pull request**
+   en staat het binnen enkele minuten op de echte site. Klopt het niet,
+   dan sluit hij de pull request en gebeurt er niets.
+
+Voor wie het formulier gebruikt verandert er niets aan het invullen —
+alleen staat de mededeling niet meer meteen online.
+
+### Iets uitproberen zonder dat het op de site komt
+
+- **Alleen op je eigen computer**: geef het bestand `.lokaal.md` in de
+  naam (bijv. `_mededelingen/proef.lokaal.md`). Zulke bestanden blijven
+  buiten GitHub.
+- **Wel in de preview, nooit op de echte site**: zet `published: false`
+  in de front matter. De preview toont zulke bestanden wel (die bouwt
+  met `--unpublished`), de echte site nooit.
+
+Een pull request die *echte* mededelingen of uitzendingen wijzigt terwijl
+hij niet van het formulier komt, wordt tegengehouden door de controle
+"Inhoud bewaken". Is dat toch de bedoeling, zet dan het label
+`inhoud-ok` op de pull request.
+
 ## Automatische controles
 
 Twee taken draaien maandelijks vanzelf (tabblad **Actions** op GitHub):
@@ -94,6 +128,10 @@ Twee taken draaien maandelijks vanzelf (tabblad **Actions** op GitHub):
 - **Links controleren** — vindt dode links op de site en opent er een
   issue voor.
 - **Verlopen items opschonen** — verwijdert mededelingen en
-  uitzendingen waarvan de einddatum ruim voorbij is.
+  uitzendingen waarvan de einddatum ruim voorbij is, inclusief de foto.
+
+Daarnaast draaien bij elke pull request: **Preview bouwen** (de
+testversie hierboven), **Preview opruimen** (weghalen zodra de pull
+request dicht is) en **Inhoud bewaken**.
 
 Beide zijn daar ook handmatig te starten met **Run workflow**.

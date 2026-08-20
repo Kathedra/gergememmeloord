@@ -396,6 +396,22 @@ label:focus-visible {
   flex: none;
 }
 
+/* ---------- Balk boven previewbouwsels ---------- */
+
+/* Alleen zichtbaar als _config_preview.yml meedraait (pull request-
+   preview op de spiegel-repository). Bewust lelijk-opvallend: niemand
+   mag een preview voor de echte site aanzien. */
+.omgevingsbalk {
+  margin: 0;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  color: #fff;
+  background: var(--brick);
+}
+
 /* ---------- Mededelingen (tijdelijke aankondigingen) ---------- */
 
 #mededelingen {

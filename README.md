@@ -31,10 +31,60 @@ Leeg laten (`hero_image: ""`) geeft weer de gradient.
 Iets promoten op de homepage voor een bepaalde periode:
 
 1. Maak een markdown-bestand in `_mededelingen/` (kopieer `voorbeeld.md`).
-2. Zet in de front matter: `titel`, `vanaf` en `tot` (datums als `JJJJ-MM-DD`, beide inclusief). `vanaf` weglaten = direct zichtbaar.
-3. Commit + push. Klaar — de mededeling verschijnt vanzelf op de startdatum en verdwijnt na de einddatum, **zonder** dat er opnieuw gepusht hoeft te worden (de datumcheck gebeurt in de browser via `assets/js/mededelingen.js`, omdat GitHub Pages alleen bij een push herbouwt).
+2. Zet in de front matter: `title`, `vanaf` en `tot` (datums als `JJJJ-MM-DD`, beide inclusief), en optioneel `afbeelding` (pad binnen de site, bijv. `/assets/img/mededelingen/foto.jpg`). `vanaf` weglaten = direct zichtbaar.
+3. Push de tak en voeg de pull request samen (zie hieronder). Daarna verschijnt de mededeling vanzelf op de startdatum en verdwijnt hij na de einddatum, **zonder** dat er opnieuw gepusht hoeft te worden (de datumcheck gebeurt in de browser via `assets/js/mededelingen.js`, omdat GitHub Pages alleen bij een push herbouwt).
 
-Let op: verborgen mededelingen staan wel in de HTML-bron van de pagina — geen vertrouwelijke inhoud dus. Verwijder verlopen bestanden bij gelegenheid gewoon uit de map.
+Elke mededeling krijgt ook een eigen pagina (`/mededelingen/<bestandsnaam>/`) met de tekst en de foto; op de startpagina staat alleen de titel met een knop *Meer informatie*.
+
+Let op: verborgen mededelingen staan wel in de HTML-bron van de pagina — geen vertrouwelijke inhoud dus. De maandelijkse opschoonworkflow ruimt verlopen bestanden (inclusief foto) op.
+
+## Wijzigingen: tak, pull request, preview
+
+`main` is beschermd; niets gaat er rechtstreeks naartoe. Werk op een tak
+en voeg samen via een pull request. Bij elke pull request bouwt
+`preview.yml` de hele site in de spiegel-repository
+`kathedra/gergememmeloord-devtest`, onder `/pr-<nummer>/` — dat is de
+testomgeving (rode balk bovenaan, `noindex`). GitHub Pages kan namelijk
+maar één tak van deze repository serveren.
+
+- Inzendingen van het formulier komen binnen op een tak `formulier/…`;
+  `formulier-pr.yml` maakt daar automatisch een pull request van.
+- Testinhoud: zet `published: false` in de front matter — zichtbaar in
+  de preview (die bouwt met `--unpublished`), nooit op de echte site.
+  Alleen lokaal proberen kan met `*.lokaal.md` (staat in `.gitignore`).
+- `inhoud-bewaker.yml` blokkeert een pull request die échte
+  mededelingen of uitzendingen wijzigt zonder van het formulier te
+  komen. Bewust toch nodig? Label `inhoud-ok` erop.
+
+### Eenmalige instellingen (met de hand)
+
+1. **Spiegel-repository** `gergememmeloord-devtest` aanmaken, publiek,
+   met één commit erin (bijv. een lege `README.md`), en
+   **Settings → Pages → Deploy from a branch → main / (root)** aanzetten.
+2. **Secret `SPIEGEL_TOKEN`** in *deze* repository
+   (Settings → Secrets and variables → Actions): een fine-grained PAT
+   met **alleen** de spiegel-repository en **Contents: read and write**.
+3. **Telegram** (optioneel): secrets `TELEGRAM_TOKEN` en
+   `TELEGRAM_CHAT_ID`. Zonder deze twee slaat de workflow het bericht
+   over; de link staat dan alleen als opmerking bij de pull request.
+4. **Settings → Actions → General**: "Allow GitHub Actions to create and
+   approve pull requests" aanzetten (anders kan `formulier-pr.yml` geen
+   pull request maken).
+5. **Ruleset op `main`** (Settings → Rules → Rulesets → New branch
+   ruleset, target `main`): "Require a pull request before merging" met
+   **0** required approvals — GitHub staat niet toe je eigen pull
+   request goed te keuren, dus met 1 approval kun je niets meer
+   samenvoegen. Zet verder "Require status checks" aan met
+   *Inhoud bewaken* en *Preview bouwen*, en zet in **Bypass list**:
+   jezelf (Repository admin) en `github-actions[bot]` — die laatste is
+   nodig voor de maandelijkse opschoonworkflow, die rechtstreeks naar
+   `main` pusht.
+6. **Formulier-app**: `PUSH_MODE=tak` in de Portainer-stack; het
+   GitHub-token mag dan met **Contents: read and write** toe (Pull
+   requests mag eraf — de workflow maakt de pull request).
+
+Zet de ruleset pas aan als deze workflows op `main` staan: een workflow
+voor pull requests wordt van de doeltak gelezen.
 
 ## Agenda via iCal-feed
 

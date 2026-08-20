@@ -1,0 +1,154 @@
+# Bouwt bij elke pull request een preview van de site en zet die in de
+# spiegel-repository (gergememmeloord-devtest), die op GitHub Pages
+# staat. Elke pull request krijgt zijn eigen map: /pr-<nummer>/. Zo kun
+# je een wijziging op een echte pagina bekijken voordat hij naar main
+# gaat — GitHub Pages bouwt zelf namelijk maar één tak per repository.
+#
+# Handmatig eenmalig nodig (zie BEHEER.md):
+#   - de spiegel-repository bestaat en heeft Pages aan staan;
+#   - secret SPIEGEL_TOKEN: fine-grained PAT met Contents: read/write
+#     op ALLEEN de spiegel-repository;
+#   - optioneel TELEGRAM_TOKEN + TELEGRAM_CHAT_ID voor een berichtje.
+name: Preview bouwen
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+# Twee duwtjes achter elkaar op dezelfde pull request: alleen de laatste
+# telt.
+concurrency:
+  group: preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+env:
+  SPIEGEL: kathedra/gergememmeloord-devtest
+  NUMMER: ${{ github.event.pull_request.number }}
+
+jobs:
+  bouwen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Een codebranch is meestal ouder dan main en heeft dus verouderde
+      # mededelingen. Voor de preview halen we die mappen van main, zodat
+      # je je wijziging naast de échte actuele inhoud ziet. Bestanden die
+      # alleen op deze tak bestaan (testmededelingen) blijven staan:
+      # 'git checkout <pad>' voegt toe en overschrijft, maar verwijdert
+      # niets. Bij formulier-takken slaan we dit over — daar ís de
+      # inhoud juist de wijziging (ook een verwijdering).
+      - name: Actuele inhoud van main erbij
+        if: ${{ !startsWith(github.head_ref, 'formulier/') }}
+        run: |
+          git fetch origin main
+          for map in _mededelingen _uitzendingen assets/img/mededelingen; do
+            git checkout origin/main -- "$map" 2>/dev/null || echo "(geen $map op main)"
+          done
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+
+      - name: Gems installeren
+        run: bundle install --jobs 4 --retry 3
+
+      # --unpublished: bestanden met 'published: false' (testinhoud en
+      # de voorbeeldbestanden) horen juist wél in een preview.
+      - name: Site bouwen
+        env:
+          JEKYLL_ENV: development
+        run: |
+          bundle exec jekyll build \
+            --unpublished \
+            --config _config.yml,_config_preview.yml \
+            --baseurl "/gergememmeloord-devtest/pr-${NUMMER}"
+
+      - name: Preview naar de spiegel-repository
+        env:
+          SPIEGEL_TOKEN: ${{ secrets.SPIEGEL_TOKEN }}
+        run: |
+          if [ -z "$SPIEGEL_TOKEN" ]; then
+            echo "::error::Secret SPIEGEL_TOKEN ontbreekt — zie BEHEER.md."
+            exit 1
+          fi
+          git clone --depth=1 \
+            "https://x-access-token:${SPIEGEL_TOKEN}@github.com/${SPIEGEL}.git" spiegel
+          rm -rf "spiegel/pr-${NUMMER}"
+          mkdir -p "spiegel/pr-${NUMMER}"
+          cp -r _site/. "spiegel/pr-${NUMMER}/"
+
+          # Zonder .nojekyll laat GitHub Pages Jekyll nóg een keer over
+          # deze al gebouwde site lopen; die gooit dan onder meer alles
+          # weg wat met _ begint.
+          touch spiegel/.nojekyll
+
+          # Een preview hoort nergens in te staan; de meta-tag in de
+          # pagina's regelt dat ook, dit is de gordel bij de bretels.
+          printf 'User-agent: *\nDisallow: /\n' > spiegel/robots.txt
+
+          # Overzichtje van de openstaande previews op de voorpagina.
+          {
+            echo '<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8">'
+            echo '<meta name="robots" content="noindex"><title>Previews</title>'
+            echo '<style>body{font-family:Georgia,serif;max-width:40rem;margin:3rem auto;padding:0 1rem}</style>'
+            echo '</head><body><h1>Previews van gergememmeloord</h1>'
+            echo '<p>Elke openstaande pull request heeft hier een eigen map.</p><ul>'
+            for map in spiegel/pr-*/; do
+              [ -d "$map" ] || continue
+              n=$(basename "$map")
+              echo "<li><a href=\"./${n}/\">${n}</a></li>"
+            done
+            echo '</ul></body></html>'
+          } > spiegel/index.html
+
+          cd spiegel
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Preview ongewijzigd."
+          else
+            git commit -m "preview PR #${NUMMER} (${GITHUB_SHA::7})"
+            # Twee pull requests tegelijk kunnen elkaar in de weg zitten.
+            git push || (git pull --rebase && git push)
+          fi
+
+      - name: Link in de pull request zetten
+        env:
+          GH_TOKEN: ${{ github.token }}
+          URL: https://kathedra.github.io/gergememmeloord-devtest/pr-${{ github.event.pull_request.number }}/
+        run: |
+          # De tekst via een omgevingsvariabele: een here-document kan
+          # niet in een YAML-blok (die regels moeten tegen de kantlijn
+          # staan) en een meerregelig argument zou de inspringing van
+          # dit script meenemen — GitHub maakt daar een codeblok van.
+          TEKST="**Preview van deze wijziging:** ${URL}"
+          TEKST="${TEKST}"$'\n\n'"Bekijk hem daar en klik daarna pas op **Merge pull request**; dan gaat hij live."
+          printf '%s' "$TEKST" \
+            | gh pr comment "$NUMMER" --repo "$GITHUB_REPOSITORY" --body-file -
+
+      - name: Bericht via Telegram
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TITEL: ${{ github.event.pull_request.title }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          URL: https://kathedra.github.io/gergememmeloord-devtest/pr-${{ github.event.pull_request.number }}/
+        run: |
+          if [ -z "$TELEGRAM_TOKEN" ] || [ -z "$TELEGRAM_CHAT_ID" ]; then
+            echo "Geen Telegram-secrets ingesteld; bericht overgeslagen."
+            exit 0
+          fi
+          tekst="Nieuwe wijziging voor gergememmeloord.nl%0A%0A${TITEL}%0A%0APreview: ${URL}%0APull request: ${PR_URL}"
+          curl -sS -X POST \
+            "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
+            -d "chat_id=${TELEGRAM_CHAT_ID}" \
+            -d "disable_web_page_preview=true" \
+            -d "text=${tekst}" > /dev/null

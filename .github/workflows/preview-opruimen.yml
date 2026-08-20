@@ -1,0 +1,56 @@
+# Ruimt de previewmap van een pull request op zodra die gesloten of
+# samengevoegd is, zodat de spiegel-repository niet volloopt met oude
+# versies van de site. Zie preview.yml voor het bouwen.
+name: Preview opruimen
+
+on:
+  pull_request:
+    types: [closed]
+
+permissions:
+  contents: read
+
+env:
+  SPIEGEL: kathedra/gergememmeloord-devtest
+  NUMMER: ${{ github.event.pull_request.number }}
+
+jobs:
+  opruimen:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Map weghalen uit de spiegel-repository
+        env:
+          SPIEGEL_TOKEN: ${{ secrets.SPIEGEL_TOKEN }}
+        run: |
+          if [ -z "$SPIEGEL_TOKEN" ]; then
+            echo "Geen SPIEGEL_TOKEN; niets op te ruimen."
+            exit 0
+          fi
+          git clone --depth=1 \
+            "https://x-access-token:${SPIEGEL_TOKEN}@github.com/${SPIEGEL}.git" spiegel
+          cd spiegel
+          if [ ! -d "pr-${NUMMER}" ]; then
+            echo "pr-${NUMMER} bestond al niet meer."
+            exit 0
+          fi
+          rm -rf "pr-${NUMMER}"
+
+          {
+            echo '<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8">'
+            echo '<meta name="robots" content="noindex"><title>Previews</title>'
+            echo '<style>body{font-family:Georgia,serif;max-width:40rem;margin:3rem auto;padding:0 1rem}</style>'
+            echo '</head><body><h1>Previews van gergememmeloord</h1>'
+            echo '<p>Elke openstaande pull request heeft hier een eigen map.</p><ul>'
+            for map in pr-*/; do
+              [ -d "$map" ] || continue
+              n=$(basename "$map")
+              echo "<li><a href=\"./${n}/\">${n}</a></li>"
+            done
+            echo '</ul></body></html>'
+          } > index.html
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "preview PR #${NUMMER} opgeruimd"
+          git push || (git pull --rebase && git push)

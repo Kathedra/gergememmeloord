@@ -1,0 +1,22 @@
+# Extra configuratie voor previewbouwsels (zie .github/workflows/
+# preview.yml). Wordt achter _config.yml geladen en overschrijft
+# alleen wat anders moet dan op de echte site:
+#
+#   bundle exec jekyll build --unpublished \
+#     --config _config.yml,_config_preview.yml \
+#     --baseurl "/gergememmeloord-devtest/pr-<nummer>"
+#
+# De baseurl komt van de commandoregel (per pull request anders), de
+# rest staat hier.
+
+# Zet de balk "TESTOMGEVING" bovenaan elke pagina en een noindex in de
+# <head> (_layouts/default.html). Leeg op de echte site.
+omgeving: preview
+
+# De preview staat op de spiegel-repository, niet op het echte adres;
+# anders wijzen canonical-URL's en link-previews naar de live site.
+url: "https://kathedra.github.io"
+
+# Geen sitemap voor een preview.
+plugins:
+  - jekyll-seo-tag

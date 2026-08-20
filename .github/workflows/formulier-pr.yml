@@ -1,0 +1,55 @@
+# Zet elke inzending van het websiteformulier om in een pull request.
+#
+# Het formulier duwt alleen een tak (formulier/...) naar deze
+# repository; het token daarvan mag bewust niets anders — geen pull
+# requests, geen main. Deze workflow maakt de pull request met het
+# ingebouwde GITHUB_TOKEN, zodat samenvoegen naar main iets blijft wat
+# alleen een mens in de browser kan doen.
+#
+# Handmatig eenmalig nodig: Settings → Actions → General →
+# "Allow GitHub Actions to create and approve pull requests" aanzetten.
+name: Pull request voor formulierinzending
+
+on:
+  push:
+    branches:
+      - 'formulier/**'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Pull request maken (of de bestaande laten staan)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAK: ${{ github.ref_name }}
+          TEKST: |
+            Ingestuurd via het websiteformulier.
+
+            Zodra de preview klaar is verschijnt hieronder een link. Bekijk die eerst en klik daarna pas op **Merge pull request** — dan staat het binnen enkele minuten op de site.
+        run: |
+          bestaand=$(gh pr list --head "$TAK" --state open --json number --jq '.[0].number // empty')
+          if [ -n "$bestaand" ]; then
+            echo "Pull request #$bestaand bestaat al voor $TAK."
+            exit 0
+          fi
+
+          # De commitboodschap van het formulier leest als
+          # "mededeling: Kerstzangavond (via formulier, joan)" — dat is
+          # meteen een bruikbare titel.
+          titel=$(git log -1 --pretty=%s)
+
+          # De tekst komt uit de omgevingsvariabele hierboven: in een
+          # YAML-blok kan een here-document niet (die regels moeten
+          # tegen de kantlijn staan) en een meerregelig argument zou de
+          # inspringing van dit script meenemen.
+          printf '%s' "$TEKST" \
+            | gh pr create --base main --head "$TAK" --title "$titel" --body-file -
