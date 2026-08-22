@@ -158,7 +158,20 @@ label:focus-visible {
   z-index: 100;
   max-width: 1080px;
   margin: 0 auto;
-  padding: 16px 20px 0;
+  /* De badge trekt via zijn eigen -20px (.logo) altijd 20px van deze
+     padding af om over de balkhoek heen te vallen. Zolang de viewport
+     breder is dan 1080px + 40px vult de auto-margin die 20px weer aan
+     tot een royale marge, maar tussen de 640px-grens en ~1080px is
+     die auto-margin (bijna) 0 — dan at de badge de volle 20px padding
+     op en kwam hij tegen de échte vensterrand aan te liggen (geen
+     zichtbare marge meer, precies het "geen linkerpadding"-rapport).
+     `margin-theoretisch` (de binnenste max(), 0 zolang de viewport
+     onder 1080px zit) herberekent wat de browser's auto-margin doet;
+     40px min die waarde geeft een vloer van 20px lucht naast de badge
+     zolang de marge dat zelf niet al haalt — vanaf marge ≥ 20px (dus
+     viewport ≥ 1120px) valt dit terug op de oorspronkelijke vaste
+     20px en is breed-scherm gedrag pixelgelijk aan voorheen. */
+  padding: 16px 20px 0 max(20px, calc(40px - max(0px, (100vw - 1080px) / 2)));
   /* Geen dekkend vlak meer: de bruine balk en het menu hebben elk
      hun eigen achtergrond + schaduw en "zweven" zo los boven de
      content die eronderdoor scrollt, in plaats van op één groot
